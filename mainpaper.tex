@@ -1,0 +1,192 @@
+%!TEX program = xelatex
+%!BIB program = biber
+%%
+%% This is file `thesis.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% nudtpaper.dtx  (with options: `thesis')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2020 by Liu Benyuan <liubenyuan@gmail.com>
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3a
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in:
+%% 
+%% http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3a or later is part of all distributions of LaTeX
+%% version 2004/10/01 or later.
+%% 
+%% To produce the documentation run the original source files ending with `.dtx'
+%% through LaTeX.
+%% 
+%% Any Suggestions : LiuBenYuan <liubenyuan@gmail.com>
+%% Thanks Xue Ruini <xueruini@gmail.com> for the thuthesis class!
+%% Thanks sofoot for the original NUDT paper class!
+%% 
+%1. 规范硕士导言
+% \documentclass[master,ttf]{nudtpaper}
+%2. 规范博士导言
+% \documentclass[doctor,twoside,ttf]{nudtpaper}
+%3. 建议使用OTF字体获得较好的页面显示效果
+%   OTF字体从网上获得，各个系统名称统一。
+%   如果你下载的是最新的(1201)OTF英文字体，建议修改nudtpaper.cls，使用
+%   Times New Roman PS Std
+% \documentclass[doctor,twoside,otf]{nudtpaper}
+%   另外，新版的论文模板提供了方正字体选项FZ，效果也不错哦
+% \documentclass[doctor,twoside,fz]{nudtpaper}
+%4. 如果想生成盲评，传递anon即可，仍需修改个人成果部分
+% \documentclass[master,otf,anon]{nudtpaper}
+%
+%5. 参考文献若用biblatex生成，则使用biber选项
+% \documentclass[master,biber]{nudtpaper}
+%
+%6. 简历中的论文和成果用biblatex参考文献方式生成，则使用resumebib选项
+% \documentclass[master,biber,resumebib]{nudtpaper}
+%
+%7. 如果是专硕，则使用prof选项
+% \documentclass[master,biber,prof]{nudtpaper}
+
+% 取消pdf压缩加速编译
+\special{dvipdfmx:config z 0}
+
+%方括号里面参数：
+
+% 硕士/博士论文：master/doctor
+% 专硕：prof
+% 双面打印：twoside
+% 参考文献若用biblatex生成，相应编译链变为：xelatex -> biber -> xelatex*2，否则xelatex -> bibtex -> xelatex*2：biber
+% 字体选项：winttf(windows下面的字体名字)，ttf(ubuntu下面的字体名字)，otf等（这些是师兄师姐们推荐打印好看的字体）
+% 盲评：anon
+% 个人成果的文献若和参考文献一样是导出的bib，不是手动填写则使用：resumebib
+
+%这里传入参数
+\documentclass[doctor,twoside,biber,winttf]{nudtpaper}
+%这里写参考文献的路径
+\addbibresource[location=local]{ref/refs.bib}
+
+\usepackage{mynudt}
+\usepackage{multirow,array,makecell}
+
+% -------------------------允许算法跨页-------------
+\makeatletter
+\newenvironment{breakablealgorithm}
+{% \begin{breakablealgorithm}
+\begin{center} %
+\refstepcounter{algorithm}% New algorithm
+%\hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+\hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+\renewcommand{\caption}[2][\relax]{% Make a new \caption
+{\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}
+
+\ifx\relax##1\relax
+
+\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+
+\else
+
+\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+
+\fi
+
+\kern2pt\hrule\kern2pt
+
+}
+
+}{% \end{breakablealgorithm}
+
+\kern2pt\hrule\relax% \@fs@post for \@fs@ruled
+
+\end{center} %
+
+}
+
+\makeatother
+
+
+
+
+\classification{TP391}
+\serialno{1605xxxx}
+\confidentiality{公开}
+\UDC{681}
+\title{基于先验模型与深度学习的图像去噪\\方法研究}
+\displaytitle{基于先验模型与深度学习的图像去噪方法研究}
+\author{谭同学}
+\zhdate{\zhtoday}
+\entitle{Joint Demosaicing and Denoising of Bayer Images}
+\enauthor{Tom Heaven}
+\endate{\entoday}
+\subject{控制科学与工程}
+\ensubject{Control Science and Engineering}
+\researchfield{多媒体信息系统与虚拟现实技术}
+\supervisor{张XX\quad{}教授}
+\cosupervisor{}  % 协助指导教师，没有就空着
+\ensupervisor{Prof. XX Zhang}
+\encosupervisor{} % 协助指导教师英文，没有就空着
+\papertype{工学}
+\enpapertype{Engineering}
+% 加入makenomenclature命令可用nomencl制作符号列表。
+
+
+
+\begin{document}
+\graphicspath{{figures/}}
+% 制作封面，生成目录，插入摘要，插入符号列表 \\
+% 默认符号列表使用denotation.tex，如果要使用nomencl \\
+% 需要注释掉denotation，并取消下面两个命令的注释。 \\
+% cleardoublepage% \\
+% printnomenclature% \\
+\maketitle
+\frontmatter
+\tableofcontents
+\listoftables
+\listoffigures
+
+%如果不是送审论文，则将true改为false即可
+\newif\ifreview\reviewfalse
+
+\midmatter
+\input{data/abstract}
+% \input{data/denotation}
+
+%书写正文，可以根据需要增添章节; 正文还包括致谢，参考文献与成果
+\mainmatter
+\input{data/chap01}
+\input{data/chap02}
+% \input{data/chap03}
+% \input{data/chap04}
+% \input{data/chap05}
+% \input{data/chap06}
+
+\input{data/ack}
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{参考文献}
+\ifisbiber
+{\hyphenpenalty=500 %
+\tolerance=9900 %
+\renewcommand{\baselinestretch}{1.35}
+\printbibliography[heading=bibliography, title=参考文献]
+
+}
+\else
+\bibliographystyle{bstutf8}
+\bibliography{ref/refs}
+\fi
+
+\input{data/resume}%在校期间成果（不用bib就手动填写）
+
+\input{data/reviewinfo} %公开评阅信息
+% 最后，需要的话还要生成附录，全文随之结束。  
+\appendix
+\backmatter
+% \input{data/appendix01}
+
+\end{document}
