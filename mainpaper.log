@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.8.22)  11 OCT 2024 11:11
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.8.22)  11 OCT 2024 18:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1163,36 +1163,36 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
  (./mainpaper.aux)
 \openout1 = `mainpaper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 140.
-LaTeX Font Info:    ... okay on input line 140.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 140.
-LaTeX Font Info:    ... okay on input line 140.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 140.
-LaTeX Font Info:    ... okay on input line 140.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 140.
-LaTeX Font Info:    ... okay on input line 140.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 140.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 140.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 138.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 138.
  (d:/texlive/2024/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 140.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 140.
-LaTeX Font Info:    ... okay on input line 140.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 140.
-LaTeX Font Info:    ... okay on input line 140.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 140.
-LaTeX Font Info:    ... okay on input line 140.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 140.
-LaTeX Font Info:    Trying to load font information for T3+cmr on input line 140.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 138.
+LaTeX Font Info:    Trying to load font information for T3+cmr on input line 138.
  (d:/texlive/2024/texmf-dist/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
-LaTeX Font Info:    ... okay on input line 140.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 140.
-LaTeX Font Info:    ... okay on input line 140.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 140.
-LaTeX Font Info:    ... okay on input line 140.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1252,9 +1252,9 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'mainpaper.bbl' found.
  (./mainpaper.bbl)
-Package biblatex Info: Reference section=0 on input line 140.
-Package biblatex Info: Reference segment=0 on input line 140.
-Package hyperref Info: Link coloring ON on input line 140.
+Package biblatex Info: Reference section=0 on input line 138.
+Package biblatex Info: Reference segment=0 on input line 138.
+Package hyperref Info: Link coloring ON on input line 138.
  (./mainpaper.out) (./mainpaper.out)
 \@outlinefile=\write5
 \openout5 = `mainpaper.out'.
@@ -1266,7 +1266,7 @@ File: fc-english.def 2016/01/12
 )
 \c@lstlisting=\count578
 Package tocbasic Info: omitting babel extension for `lol'
-(tocbasic)             because of missing \bbl@set@language on input line 140.
+(tocbasic)             because of missing \bbl@set@language on input line 138.
 
 Package fontspec Info: 
 (fontspec)             Font family '仿宋GB2312v2.00.ttf(0)' created for font
@@ -1279,46 +1279,46 @@ Package fontspec Info:
 (fontspec)             - 'normal' (m/n) with NFSS spec.: <->"[仿宋GB2312
 (fontspec)             v2.00.ttf]/OT:script=hani;language=dflt;mapping=tex-text;"
 
-LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 147.
+LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 145.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <10.53937> not available
-(Font)              size <10.95> substituted on input line 147.
+(Font)              size <10.95> substituted on input line 145.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <10.53937> not available
-(Font)              size <10.95> substituted on input line 147.
+(Font)              size <10.95> substituted on input line 145.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <10.53937> not available
-(Font)              size <10.95> substituted on input line 147.
+(Font)              size <10.95> substituted on input line 145.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 147.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 145.
 (d:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 147.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 145.
  (d:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 9.48535pt on input line 147.
+(Font)              scaled to size 9.48535pt on input line 145.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 6.63971pt on input line 147.
+(Font)              scaled to size 6.63971pt on input line 145.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 4.74268pt on input line 147.
+(Font)              scaled to size 4.74268pt on input line 145.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <10.53937> not available
-(Font)              size <10.95> substituted on input line 147.
+(Font)              size <10.95> substituted on input line 145.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <10.53937> not available
-(Font)              size <10.95> substituted on input line 147.
+(Font)              size <10.95> substituted on input line 145.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <10.53937> not available
-(Font)              size <10.95> substituted on input line 147.
+(Font)              size <10.95> substituted on input line 145.
 
 
 Package fontspec Info: 
@@ -1332,13 +1332,13 @@ Package fontspec Info:
 (fontspec)             - 'normal' (m/n) with NFSS spec.:
 (fontspec)             <->"[simhei.ttf]/OT:script=hani;language=dflt;mapping=tex-text;"
 
-LaTeX Font Info:    Calculating math sizes for size <14.05249> on input line 147.
+LaTeX Font Info:    Calculating math sizes for size <14.05249> on input line 145.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 12.64714pt on input line 147.
+(Font)              scaled to size 12.64714pt on input line 145.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 8.85295pt on input line 147.
+(Font)              scaled to size 8.85295pt on input line 145.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 6.32356pt on input line 147.
+(Font)              scaled to size 6.32356pt on input line 145.
 
 
 [1
@@ -1348,37 +1348,37 @@ LaTeX Font Info:    Font shape `U/fsy/m/n' will be
 [2
 
 ]
-LaTeX Font Info:    Calculating math sizes for size <16.06> on input line 147.
+LaTeX Font Info:    Calculating math sizes for size <16.06> on input line 145.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <16.06> not available
-(Font)              size <17.28> substituted on input line 147.
+(Font)              size <17.28> substituted on input line 145.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <16.06> not available
-(Font)              size <17.28> substituted on input line 147.
+(Font)              size <17.28> substituted on input line 145.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <16.06> not available
-(Font)              size <17.28> substituted on input line 147.
+(Font)              size <17.28> substituted on input line 145.
 
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 14.45389pt on input line 147.
+(Font)              scaled to size 14.45389pt on input line 145.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 10.11768pt on input line 147.
+(Font)              scaled to size 10.11768pt on input line 145.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 7.22694pt on input line 147.
+(Font)              scaled to size 7.22694pt on input line 145.
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <16.06> not available
-(Font)              size <17.28> substituted on input line 147.
+(Font)              size <17.28> substituted on input line 145.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <16.06> not available
-(Font)              size <17.28> substituted on input line 147.
+(Font)              size <17.28> substituted on input line 145.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <16.06> not available
-(Font)              size <17.28> substituted on input line 147.
+(Font)              size <17.28> substituted on input line 145.
 
 
 
@@ -1704,16 +1704,16 @@ LaTeX Font Warning: Font shape `TU/仿宋GB2312v2.00.ttf(0)/tt/n' undefined
 [22
 
 ]
-Overfull \hbox (5.00531pt too wide) in paragraph at lines 5--20
+Overfull \hbox (5.00531pt too wide) in paragraph at lines 5--19
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 28--30
+Underfull \hbox (badness 10000) in paragraph at lines 27--29
 
  []
 
-)
+
 
 [23
 
@@ -1721,7 +1721,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 28--30
 
 [24
 
-]
+])
 \tf@thm=\write9
 \openout9 = `mainpaper.thm'.
 
