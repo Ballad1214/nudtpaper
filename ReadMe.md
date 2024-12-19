@@ -1,6 +1,6 @@
 
 # 更新记录
-+ **2024年10月11日**：由于之前存在几个模板仓库，大家比较混乱，有的不支持专硕等，还有就是存在目录开始空白页不显示页眉页脚的问题（TomHeaven模板修正了，但是目录页好像不显示，而且这个模板专硕的话还要手动修改），这里统一修正一下，顺便介绍一下关键用法，提高效率。
++ **2024年10月11日**：由于之前存在几个模板仓库，大家看着比较混乱，有的不支持专硕等，还有就是存在目录开始空白页不显示页眉页脚的问题（TomHeaven模板修正了，但是目录页好像不显示，而且这个模板专硕的话还要手动修改），这里统一修正一下，顺便介绍一下关键用法，提高效率。
 
 # 已测试配置
 1. win11 + vscode + texlive2021、2024
@@ -10,6 +10,18 @@
 ## 编译
 主体文件`mainpaper.tex`，在vscode中编译即可，编译链：*"xelatex -> biber -> xelatex*2"*（由于参考文献若用biblatex生成，故使用biber选项，当然也可以不用，biber与bibtex区别自行了解）
 ## 不同版本的论文
+
+最终论文分为四个版本,分别是：评阅版明评、评阅版盲评、存档版明评、存档版盲评
+
+控制评阅版和存档版的命令在此文件的后面（100行左右，如下） ：
+```tex
+% %评阅版论文
+% % \newif\ifreview\reviewtrue
+% %存档版论文
+% \newif\ifreview\reviewfalse
+```
+`独创性声明`是需要扫描件的，因此只需要替换根目录里的pdf文件即可。
+
 **方括号里面参数：**
 |                                                                                                             |                                                                                                       |
 | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -42,9 +54,12 @@
 在nudtpaper.cls文件下
 ![alt text](image-1.png)
 
+3.linux下则需要先刷新字体缓存：fc-cache -fv，而后在终端输入fc-list，查找相应的名字。
+
 # 编译问题
 1. XeLaTeX 编译卡时间，一般就是因为找字体时间太长(还有就是win下面太慢了，我在wsl下编译实测速度提升3倍)。   
 可在编译前刷新字体缓存：fc-cache -fv
+
 1. 出现字形不可获得的警告信息，一般是因为latex公式的字体缩放不到期望的大小，会用最相近的大小代替，可忽略。
 
 
@@ -202,80 +217,6 @@
     // 用于反向同步的内部查看器的键绑定。ctrl/cmd +点击(默认)或双击
     "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
     /****end latex****/
-    "remote.SSH.remotePlatform": {
-        "192.168.0.48": "linux",
-        "192.168.0.203": "linux",
-        "fengyun1": "linux",
-        "fengyun2": "linux",
-        "fengyun3": "linux",
-        "fengyun4": "linux",
-        "实验室服务器": "linux",
-        "fy1": "linux",
-        "fy2": "linux",
-        "fy3": "linux",
-        "fy4": "linux",
-        "fy5": "linux",
-        "amov": "linux",
-        "实验室服务器2": "linux",
-        "实验室服务器1": "linux"
-    },
-    "cmake.configureOnOpen": true,
-    "git.enableSmartCommit": true,
-    "git.confirmSync": false,
-    "workbench.editorAssociations": {
-        "*.obj": "default",
-        "*.pdf": "latex-workshop-pdf-hook"
-    },
-    "cmake.showOptionsMovedNotification": false,
-    "grunt.autoDetect": "on",
-    "cmake.pinnedCommands": [
-        "cmake.configure"
-    ],
-    "editor.fontSize": 16,
-    "bitoAI.codeCompletion.enableAutoCompletion": true,
-    "bitoAI.codeCompletion.enableCommentToCode": true,
-    "editor.inlineSuggest.showToolbar": "onHover",
-    "workbench.colorTheme": "Default Dark+",
-    "markdown-preview-enhanced.codeBlockTheme": "auto.css",
-    "markdown-preview-enhanced.previewTheme": "github-dark.css",
-    "python.createEnvironment.trigger": "off",
-    "git.autofetch": true,
-    "Codegeex.SidebarUI.LanguagePreference": "中文",
-    "Codegeex.CompletionModel": "CodeGeeX Pro[Beta]",
-    "Codegeex.Chat.LanguagePreference": "中文",
-    "Codegeex.Local": {
-        "apiURL": "",
-        "useChatGLM": true,
-        "chatGLM": {
-            "apiKey": "",
-            "model": ""
-        },
-        "chat": {
-            "useDefaultSystemPrompt": true,
-            "systemPrompt": "",
-            "temperature": 0.2,
-            "top_p": 0.95,
-            "max_tokens": 1024,
-            "presence_penalty": 1
-        },
-        "completions": {
-            "useDefaultSystemPrompt": true,
-            "systemPrompt": "",
-            "temperature": 0.2,
-            "top_p": 0.95,
-            "max_tokens": 64,
-            "presence_penalty": 1
-        }
-    },
-    "Codegeex.DisabledFor": {
-        "latex": true,
-        "markdown": true
-    },
-    "workbench.iconTheme": "vscode-icons",
-    "Codegeex.CommitMessageStyle": "Default",
-    "Codegeex.License": "",
-    "bitoAI.appearance.fontSize (Match with IDE Font)": false
-    //latex配置结束//
 ```
 # 联系方式
 + ballad_l@163.com

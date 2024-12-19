@@ -42,12 +42,10 @@
 \DeclareOption{prof}{\isproftrue}
 \DeclareOption*{\PackageWarning{nudtpaper}{Unknown Option '\CurrentOption'}}
 \newif\ifisttf\isttffalse
-\newif\ifiswinttf\iswinttffalse
 \newif\ifisotf\isotffalse
 \newif\ifisfz\isfzfalse
 \newif\ifisfandol\isfandolfalse
 \DeclareOption{ttf}{\isttftrue}
-\DeclareOption{winttf}{\iswinttftrue}
 \DeclareOption{otf}{\isotftrue}
 \DeclareOption{fz}{\isfztrue}
 \DeclareOption{fandol}{\isfandoltrue}
@@ -92,7 +90,9 @@
 \RequirePackage{indentfirst}
 \RequirePackage{xunicode-addon}
 \RequirePackage{notoccite}
-
+%我自己添加的\/\/\/
+\RequirePackage{pdfpages}
+%我自己添加的/\/\/\
 \newcommand{\fttilde}{\fontspec{FreeSerif}\selectfont}
 \ifisbiber
 \RequirePackage[backend=biber,style=gb7714-2015,gbalign=gb7714-2015,%
@@ -186,49 +186,43 @@ gbnamefmt=lowercase,gbpub=false]{biblatex}%
 \xeCJKsetcharclass{"0}{"2E7F}{0}
 \xeCJKsetcharclass{"2E80}{"FFFF}{1}
 
+% \setCJKfamilyfont{zhsong}[AutoFakeBold = {2.17}]{simsun.ttc}
 
+% % 论文模板字体-ubuntu
+% \newcommand{\installttf}{
+%     %%%% Windows Thesis Fonts
+%     \setmainfont{Times New Roman}
+%     \setsansfont{Arial}
+%     \setmonofont{Courier New}
+%     %%%% Using Office Family Fonts
+%     \setCJKmainfont[BoldFont={STZhongsong}]{SimSun}
+%     % \setCJKmainfont{simsun.ttc}//宋体无法加粗，用中宋替代
+%     \setCJKsansfont{SimHei} % Hei
+%     \setCJKmonofont{FangSong_GB2312} % Fangsong
+%     %%%% alias
+%     \setCJKfamilyfont{song}{SimSun}
+%     \setCJKfamilyfont{hei}{SimHei}
+%     \setCJKfamilyfont{fs}{FangSong_GB2312} % fang-song
+%     \setCJKfamilyfont{kai}{KaiTi_GB2312} % Kai
+% }
 
-
-% 论文模板字体(windows)
-\newcommand{\installwinttf}{
+% 论文模板字体-windows
+\newcommand{\installttf}{
     %%%% Windows Thesis Fonts
     \setmainfont{Times New Roman}
     \setsansfont{Arial}
     \setmonofont{Courier New}
     %%%% Using Office Family Fonts
     \setCJKmainfont[BoldFont={华文中宋.TTF}]{simsun.ttc}
-    % 宋体无法加粗，用中宋替代
+    % \setCJKmainfont{simsun.ttc}//宋体无法加粗，用中宋替代
     \setCJKsansfont{simhei.ttf} % Hei
     \setCJKmonofont{仿宋GB2312 v2.00.ttf} % Fangsong
     %%%% alias
-    \setCJKfamilyfont{song}{simsun.ttc}%Song
+    \setCJKfamilyfont{song}{simsun.ttc}
     \setCJKfamilyfont{hei}{simhei.ttf}
     \setCJKfamilyfont{fs}{仿宋GB2312 v2.00.ttf} % fang-song
     \setCJKfamilyfont{kai}{楷体_GB2312.TTF} % Kai
 }
-
-
-
-
-
-
-% 论文模板字体(linux)
-\newcommand{\installttf}{
-    \setmainfont{Times New Roman}
-    \setsansfont{Arial}
-    \setmonofont{Courier New}
-    %%%% Using Office Family Fonts
-    \setCJKmainfont[BoldFont={STZhongsong}]{SimSun}
-    \setCJKsansfont{SimHei} % Hei
-    \setCJKmonofont{FangSong_GB2312} % Fangsong
-    %%%% alias
-    \setCJKfamilyfont{song}{SimSun}
-    \setCJKfamilyfont{hei}{SimHei}
-    \setCJKfamilyfont{fs}{FangSong_GB2312} % fang-song
-    \setCJKfamilyfont{kai}{KaiTi_GB2312} % Kai
-}
-
-
 
 \newcommand{\installotf}{
     %%%% Windows Thesis Fonts
@@ -280,10 +274,6 @@ gbnamefmt=lowercase,gbpub=false]{biblatex}%
 
 \ifisttf
 \installttf
-\fi
-
-\ifiswinttf
-\installwinttf
 \fi
 
 \ifisotf
@@ -751,30 +741,33 @@ Defense Technology}\fi}\\
   % \cleardoublepage
   \newpage
   \thispagestyle{empty}
-  {\cusong \erhao \centering \ziju{12pt} 独创性声明 \par\vspace{2cm}}
-  {\fangsong\xiaosi %
-本人声明所呈交的学位论文是我本人在导师指导下进行的研究工作及取得的研究成果。尽我所知，除了文中特别加以标注和致谢的地方外，论文中不包含其他人已经发表和撰写过的研究成果，也不包含为获得国防科技大学或其它教育机构的学位或证书而使用过的材料。与我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的说明并表示谢意。\par
-学位论文题目：\vbox{\hbox to11cm{\hfil \the\displaytitle \hfil}
-  \protect\vspace{0.6truemm}\relax
-  \hrule depth0pt height0.15truemm width11cm}\par
-学位论文作者签名：\hrulefill\hrulefill\hrulefill\hrulefill\hrulefill
-  \hfill 日期：\hfill\hfill 年\hfill 月 \hfill 日\hspace{1cm}\par}
+  
+  \includepdf[pages=1]{独创性声明扫描件.pdf}
 
-  \vspace*{2cm}
-  {\cusong \erhao \centering 学位论文版权使用授权书\par\vspace{2cm}}
-  {\fangsong\xiaosi %
-本人完全了解国防科技大学有关保留、使用学位论文的规定。
-本人授权国防科技大学可以保留并向国家有关部门或机构送交论文的复印件和电子
-文档，允许论文被查阅和借阅; 可以将学位论文的全部或部分内容编入有关数据库
-进行检索，可以采用影印、缩印或扫描等复制手段保存、汇编学位论文。\par
-（保密学位论文在解密后适用本授权书。）\par
-学位论文题目：\vbox{\hbox to11cm{\hfil \the\displaytitle \hfil}
-  \protect\vspace{0.6truemm}\relax
-  \hrule depth0pt height0.15truemm width11cm}\par
-学位论文作者签名：\hrulefill\hrulefill\hrulefill\hrulefill\hrulefill
-  \hfill 日期：\hfill\hfill 年\hfill 月 \hfill 日\par
-作者指导教师签名：\hrulefill\hrulefill\hrulefill\hrulefill\hrulefill
-  \hfill 日期：\hfill\hfill 年\hfill 月 \hfill 日\par}
+%   {\cusong \erhao \centering \ziju{12pt} 独创性声明 \par\vspace{2cm}}
+%   {\fangsong\xiaosi %
+% 本人声明所呈交的学位论文是我本人在导师指导下进行的研究工作及取得的研究成果。尽我所知，除了文中特别加以标注和致谢的地方外，论文中不包含其他人已经发表和撰写过的研究成果，也不包含为获得国防科技大学或其它教育机构的学位或证书而使用过的材料。与我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的说明并表示谢意。\par
+% 学位论文题目：\vbox{\hbox to11cm{\hfil \the\displaytitle \hfil}
+%   \protect\vspace{0.6truemm}\relax
+%   \hrule depth0pt height0.15truemm width11cm}\par
+% 学位论文作者签名：\hrulefill\hrulefill\hrulefill\hrulefill\hrulefill
+%   \hfill 日期：\hfill\hfill 年\hfill 月 \hfill 日\hspace{1cm}\par}
+
+%   \vspace*{2cm}
+%   {\cusong \erhao \centering 学位论文版权使用授权书\par\vspace{2cm}}
+%   {\fangsong\xiaosi %
+% 本人完全了解国防科技大学有关保留、使用学位论文的规定。
+% 本人授权国防科技大学可以保留并向国家有关部门或机构送交论文的复印件和电子
+% 文档，允许论文被查阅和借阅; 可以将学位论文的全部或部分内容编入有关数据库
+% 进行检索，可以采用影印、缩印或扫描等复制手段保存、汇编学位论文。\par
+% （保密学位论文在解密后适用本授权书。）\par
+% 学位论文题目：\vbox{\hbox to11cm{\hfil \the\displaytitle \hfil}
+%   \protect\vspace{0.6truemm}\relax
+%   \hrule depth0pt height0.15truemm width11cm}\par
+% 学位论文作者签名：\hrulefill\hrulefill\hrulefill\hrulefill\hrulefill
+%   \hfill 日期：\hfill\hfill 年\hfill 月 \hfill 日\par
+% 作者指导教师签名：\hrulefill\hrulefill\hrulefill\hrulefill\hrulefill
+%   \hfill 日期：\hfill\hfill 年\hfill 月 \hfill 日\par}
 }\fi
 
   \normalsize % normal, 正文开始
