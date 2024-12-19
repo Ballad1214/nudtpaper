@@ -19,8 +19,8 @@
 \contentsline {section}{\numberline {2.6}代码高亮}{13}{section.2.6}%
 \contentsline {section}{\numberline {2.7}符号列表}{14}{section.2.7}%
 \contentsline {section}{\numberline {2.8}中文习惯}{16}{section.2.8}%
-\contentsline {chapter}{致谢}{17}{chapter*.22}%
-\contentsline {chapter}{参考文献}{19}{section*.23}%
-\contentsline {chapter}{作者在学期间取得的学术成果}{21}{chapter*.25}%
-\contentsline {chapter}{公开评阅信息}{23}{chapter*.26}%
+\contentsline {chapter}{致谢}{17}{chapter*.23}%
+\contentsline {chapter}{参考文献}{19}{section*.24}%
+\contentsline {chapter}{作者在学期间取得的学术成果}{21}{chapter*.26}%
+\contentsline {chapter}{公开评阅信息}{23}{chapter*.27}%
 \contentsfinish 
