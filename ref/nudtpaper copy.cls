@@ -180,7 +180,7 @@ gbnamefmt=lowercase,gbpub=false]{biblatex}%
 \newcommand{\upcite}[1]{\textsuperscript{\newcite{#1}}} % 上标形式引用
 \renewcommand{\cite}[1]{\textsuperscript{\newcite{#1}}} % 上标形式引用
 \fi
-\RequirePackage[colorlinks=true,linkcolor=blue,citecolor=red,pdfborder=0 1 1]{hyperref}
+\RequirePackage[colorlinks=false,linkcolor=black,citecolor=black,pdfborder=0 1 1]{hyperref}
 \RequirePackage{datetime}
 \defaultfontfeatures{Mapping=tex-text}
 \xeCJKsetcharclass{"0}{"2E7F}{0}
@@ -188,40 +188,22 @@ gbnamefmt=lowercase,gbpub=false]{biblatex}%
 
 % \setCJKfamilyfont{zhsong}[AutoFakeBold = {2.17}]{simsun.ttc}
 
-% % 论文模板字体-ubuntu
-% \newcommand{\installttf}{
-%     %%%% Windows Thesis Fonts
-%     \setmainfont{Times New Roman}
-%     \setsansfont{Arial}
-%     \setmonofont{Courier New}
-%     %%%% Using Office Family Fonts
-%     \setCJKmainfont[BoldFont={STZhongsong}]{SimSun}
-%     % \setCJKmainfont{simsun.ttc}//宋体无法加粗，用中宋替代
-%     \setCJKsansfont{SimHei} % Hei
-%     \setCJKmonofont{FangSong_GB2312} % Fangsong
-%     %%%% alias
-%     \setCJKfamilyfont{song}{SimSun}
-%     \setCJKfamilyfont{hei}{SimHei}
-%     \setCJKfamilyfont{fs}{FangSong_GB2312} % fang-song
-%     \setCJKfamilyfont{kai}{KaiTi_GB2312} % Kai
-% }
-
-% 论文模板字体-windows
+% 论文模板字体
 \newcommand{\installttf}{
     %%%% Windows Thesis Fonts
     \setmainfont{Times New Roman}
     \setsansfont{Arial}
     \setmonofont{Courier New}
     %%%% Using Office Family Fonts
-    \setCJKmainfont[BoldFont={华文中宋.TTF}]{simsun.ttc}
+    \setCJKmainfont[BoldFont={STZhongsong}]{SimSun}
     % \setCJKmainfont{simsun.ttc}//宋体无法加粗，用中宋替代
-    \setCJKsansfont{simhei.ttf} % Hei
-    \setCJKmonofont{仿宋GB2312 v2.00.ttf} % Fangsong
+    \setCJKsansfont{SimHei} % Hei
+    \setCJKmonofont{FangSong_GB2312} % Fangsong
     %%%% alias
-    \setCJKfamilyfont{song}{simsun.ttc}
-    \setCJKfamilyfont{hei}{simhei.ttf}
-    \setCJKfamilyfont{fs}{仿宋GB2312 v2.00.ttf} % fang-song
-    \setCJKfamilyfont{kai}{楷体_GB2312.TTF} % Kai
+    \setCJKfamilyfont{song}{SimSun}
+    \setCJKfamilyfont{hei}{SimHei}
+    \setCJKfamilyfont{fs}{FangSong_GB2312} % fang-song
+    \setCJKfamilyfont{kai}{KaiTi_GB2312} % Kai
 }
 
 \newcommand{\installotf}{

@@ -1,0 +1,451 @@
+\chapter{LaTeX基础与模板入门}
+\label{chap:intro}
+
+本章将介绍 LaTeX 的基本使用方法和 NUDT 论文模板的核心功能。通过学习本章，您将掌握如何使用模板创建规范的学术论文。
+
+\section{文档结构与基本设置}
+\label{sec:structure}
+
+\subsection{主文档结构}
+NUDT 论文模板的主文档结构如下所示：
+
+\begin{lstlisting}[language=TeX, caption=主文档基本结构]
+\documentclass[master,twoside,biber,prof,ttf]{nudtpaper}
+\addbibresource[location=local]{ref/refs.bib}
+\usepackage{mynudt}
+
+\begin{document}
+% 封面
+\maketitle
+\frontmatter
+% 目录
+\tableofcontents
+\listoftables
+\listoffigures
+
+\midmatter
+% 摘要和符号列表
+\input{data/abstract}
+\input{data/denotation}
+
+\mainmatter
+% 正文章节
+\input{data/chap01}
+\input{data/chap02}
+% 更多章节...
+
+% 致谢
+\input{data/ack}
+
+% 参考文献
+\printbibliography[heading=bibliography, title=参考文献]
+
+% 作者成果
+\input{data/resume}
+\input{data/reviewinfo}
+
+% 附录
+\appendix
+\backmatter
+\input{data/appendix01}
+
+\end{document}
+\end{lstlisting}
+
+\subsection{文档类选项}
+模板支持多种选项组合：
+
+\begin{table}[htbp]
+  \centering
+  \caption{文档类选项说明}
+  \label{tab:class_options}
+  \begin{tabularx}{0.9\linewidth}{lX}
+    \toprule[1.5pt]
+    {\hei 选项} & {\hei 说明} \\
+    \midrule[1pt]
+    \texttt{master/doctor} & 硕士/博士学位论文 \\
+    \texttt{twoside} & 双面打印 \\
+    \texttt{biber} & 使用 biber 处理参考文献 \\
+    \texttt{prof} & 专业学位（工程硕士等） \\
+    \texttt{anon} & 盲评版本（匿名评审） \\
+    \texttt{ttf/otf/fz/fandol} & 字体选择（系统字体/Adobe字体/方正字体/Fandol字体） \\
+    \bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}
+
+\section{字体与段落格式}
+\label{sec:font_para}
+
+\subsection{中文字体}
+模板预定义了四种中文字体：
+
+\begin{itemize}
+  \item {\song 宋体}：\verb|\song| 或 \verb|\songti|，正文默认字体
+  \item {\hei 黑体}：\verb|\hei| 或 \verb|\heiti|，用于标题和强调
+  \item {\kai 楷体}：\verb|\kai| 或 \verb|\kaishu|，用于引用、说明
+  \item {\fs 仿宋}：\verb|\fs| 或 \verb|\fangsong|，用于图表标题、脚注
+\end{itemize}
+
+\subsection{字体大小}
+模板提供了完整的字号命令：
+
+\begin{table}[htbp]
+  \centering
+  \caption{字体大小命令}
+  \label{tab:font_sizes}
+  \begin{tabular}{cc}
+    \toprule[1.pt]
+    {\hei 命令} & {\hei 示例} \\
+    \midrule[1pt]
+    \verb|\chuhao| & {\song\chuhao 初号字} \\
+    \verb|\xiaochu| & {\song\xiaochu 小初号} \\
+    \verb|\yihao| & {\song\yihao 一号字} \\
+    \verb|\xiaoyi| & {\song\xiaoyi 小一号} \\
+    \verb|\erhao| & {\song\erhao 二号字} \\
+    \verb|\xiaoer| & {\song\xiaoer 小二号} \\
+    \verb|\sanhao| & {\song\sanhao 三号字} \\
+    \verb|\xiaosan| & {\song\xiaosan 小三号} \\
+    \verb|\sihao| & {\song\sihao 四号字} \\
+    \verb|\xiaosi| & {\song\xiaosi 小四号（正文）} \\
+    \verb|\wuhao| & {\song\wuhao 五号字} \\
+    \verb|\xiaowu| & {\song\xiaowu 小五号} \\
+    \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
+\subsection{段落与缩进}
+\begin{itemize}
+  \item 段落首行自动缩进 2 个汉字宽度
+  \item 段落间距通过 \verb|\parskip| 控制
+  \item 使用 \verb|\noindent| 取消段落缩进
+  \item 使用 \verb|\indent| 强制缩进
+\end{itemize}
+
+\section{列表环境}
+\label{sec:lists}
+
+\subsection{有序列表}
+\begin{enumerate}
+  \item 第一项
+  \item 第二项
+  \begin{enumerate}
+    \item 子项一
+    \item 子项二
+  \end{enumerate}
+  \item 第三项
+\end{enumerate}
+
+\subsection{无序列表}
+\begin{itemize}
+  \item 项目一
+  \item 项目二
+  \begin{itemize}
+    \item 子项目
+    \item 另一个子项目
+  \end{itemize}
+  \item 项目三
+\end{itemize}
+
+\subsection{紧凑列表}
+当需要较小行距时，使用 \texttt{compactenum} 和 \texttt{compactitem} 环境：
+
+\begin{compactenum}
+  \item 紧凑项一
+  \item 紧凑项二
+  \item 紧凑项三
+\end{compactenum}
+
+\begin{compactitem}
+  \item 紧凑项目一
+  \item 紧凑项目二
+  \item 紧凑项目三
+\end{compactitem}
+
+\section{表格制作}
+\label{sec:tables_basic}
+
+\subsection{基本三线表}
+推荐使用三线表，简洁美观：
+
+\begin{table}[htbp]
+  \centering
+  \caption{实验数据记录表}
+  \label{tab:basic_table}
+  \begin{tabular}{lccc}
+    \toprule[1.5pt]
+    {\hei 样本编号} & {\hei 温度（℃）} & {\hei 压力（MPa）} & {\hei 结果} \\
+    \midrule[1pt]
+    S01 & 25.0 & 0.101 & 通过 \\
+    S02 & 30.5 & 0.102 & 通过 \\
+    S03 & 35.2 & 0.103 & 失败 \\
+    S04 & 28.7 & 0.101 & 通过 \\
+    \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
+\subsection{表格脚注}
+在表格中使用脚注需要将表格放在 \texttt{minipage} 环境中：
+
+\begin{table}[htbp]
+  \centering
+  \begin{minipage}[t]{0.8\linewidth}
+  \caption{带脚注的表格示例}
+  \label{tab:table_footnote}
+    \begin{tabular}{lcc}
+      \toprule[1.5pt]
+      {\hei 参数} & {\hei 数值} & {\hei 单位} \\
+      \midrule[1pt]
+      采样频率 & 1000 & Hz\footnote{赫兹} \\
+      分辨率 & 16 & bit \\
+      量程 & $\pm$10 & V\footnote{伏特} \\
+      \bottomrule[1.5pt]
+    \end{tabular}
+  \end{minipage}
+\end{table}
+
+\subsection{自动调整列宽}
+使用 \texttt{tabularx} 环境自动调整列宽：
+
+\begin{table}[htbp]
+  \centering
+  \caption{自动调整列宽表格}
+  \label{tab:tabularx_table}
+  \begin{tabularx}{0.9\linewidth}{lX}
+    \toprule[1.5pt]
+    {\hei 项目} & {\hei 详细描述} \\
+    \midrule[1pt]
+    研究背景 & 随着人工智能技术的快速发展，深度学习在图像识别、自然语言处理等领域取得了显著成果。本研究旨在探索... \\
+    研究方法 & 采用卷积神经网络（CNN）和循环神经网络（RNN）相结合的混合模型，通过大量实验验证模型的有效性。 \\
+    创新点 & 首次提出了一种基于注意力机制的多尺度特征融合方法，显著提升了模型的识别准确率。 \\
+    \bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}
+
+\section{图片插入}
+\label{sec:figures_basic}
+
+\subsection{单张图片}
+基本图片插入方法：
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\linewidth]{example-image} % 请替换为实际图片
+  \caption{单张图片示例（请用实际图片文件替换）}
+  \label{fig:single_image}
+\end{figure}
+
+\subsection{子图排版}
+使用 \texttt{subfig} 宏包排版子图：
+
+\begin{figure}[htbp]
+  \centering
+  \subfloat[原始图像]{
+    \includegraphics[width=0.3\linewidth]{example-image-a}
+  }\hfill
+  \subfloat[处理后图像]{
+    \includegraphics[width=0.3\linewidth]{example-image-b}
+  }\hfill
+  \subfloat[结果对比]{
+    \includegraphics[width=0.3\linewidth]{example-image-c}
+  }
+  \caption{图像处理流程示例}
+  \label{fig:subfig_example}
+\end{figure}
+
+\subsection{并排图片}
+当多张图片需要独立编号时，使用 \texttt{minipage}：
+
+\begin{figure}[htbp]
+\begin{minipage}{0.48\textwidth}
+  \centering
+  \includegraphics[width=0.8\linewidth]{example-image-a}
+  \caption{第一张并排图片}
+  \label{fig:parallel1}
+\end{minipage}\hfill
+\begin{minipage}{0.48\textwidth}
+  \centering
+  \includegraphics[width=0.8\linewidth]{example-image-b}
+  \caption{第二张并排图片}
+  \label{fig:parallel2}
+\end{minipage}
+\end{figure}
+
+\section{数学公式}
+\label{sec:math_basic}
+
+\subsection{行内公式}
+在段落中插入公式：$E = mc^2$，其中 $E$ 表示能量，$m$ 表示质量，$c$ 表示光速。
+
+\subsection{行间公式}
+使用 \texttt{equation} 环境：
+
+\begin{equation}
+\label{eq:newton}
+F = ma
+\end{equation}
+其中 $F$ 为力，$m$ 为质量，$a$ 为加速度。
+
+\subsection{多行公式}
+使用 \texttt{align} 环境对齐多行公式：
+
+\begin{align}
+\label{eq:wave}
+\frac{\partial^2 u}{\partial t^2} &= c^2 \nabla^2 u \\
+\int_{-\infty}^{\infty} e^{-x^2} dx &= \sqrt{\pi} \\
+\lim_{x \to 0} \frac{\sin x}{x} &= 1
+\end{align}
+
+\subsection{矩阵与向量}
+矩阵表示：
+\[
+\mathbf{A} = \begin{bmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{bmatrix}
+\]
+
+向量表示：
+\[
+\mathbf{x} = \begin{bmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{bmatrix}, \quad
+\mathbf{b} = \begin{bmatrix}
+b_1 & b_2 & \cdots & b_m
+\end{bmatrix}
+\]
+
+\section{定理与证明}
+\label{sec:theorems}
+
+\subsection{定理环境}
+\begin{theorem}[勾股定理]
+\label{thm:pythagorean}
+在直角三角形中，斜边的平方等于两直角边的平方和。即：
+\begin{equation}
+c^2 = a^2 + b^2
+\end{equation}
+\end{theorem}
+
+\subsection{引理环境}
+\begin{lemma}
+\label{lem:example}
+如果函数 $f(x)$ 在区间 $[a,b]$ 上连续，则 $f(x)$ 在该区间上可积。
+\end{lemma}
+
+\subsection{定义环境}
+\begin{definition}[导数]
+\label{def:derivative}
+函数 $f(x)$ 在点 $x_0$ 处的导数定义为：
+\begin{equation}
+f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}
+\end{equation}
+\end{definition}
+
+\subsection{证明环境}
+\begin{proof}[定理\ref{thm:pythagorean}的证明]
+设直角三角形两直角边长为 $a$ 和 $b$，斜边长为 $c$。构造边长为 $a+b$ 的正方形，其面积为 $(a+b)^2$。这个正方形可以分割为四个全等的直角三角形和一个边长为 $c$ 的小正方形。因此：
+\[
+(a+b)^2 = 4 \times \frac{1}{2}ab + c^2
+\]
+化简得 $a^2 + 2ab + b^2 = 2ab + c^2$，即 $a^2 + b^2 = c^2$。
+\end{proof}
+
+\section{代码高亮}
+\label{sec:code_basic}
+
+\subsection{Python 代码示例}
+\begin{lstlisting}[language=Python, caption=Python代码示例]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def sigmoid(x):
+    """Sigmoid激活函数"""
+    return 1 / (1 + np.exp(-x))
+
+def neural_network(X, W1, b1, W2, b2):
+    """简单神经网络前向传播"""
+    # 隐藏层
+    Z1 = np.dot(X, W1) + b1
+    A1 = sigmoid(Z1)
+    
+    # 输出层
+    Z2 = np.dot(A1, W2) + b2
+    A2 = sigmoid(Z2)
+    
+    return A2
+
+# 初始化参数
+n_input = 784
+n_hidden = 128
+n_output = 10
+
+W1 = np.random.randn(n_input, n_hidden) * 0.01
+b1 = np.zeros((1, n_hidden))
+W2 = np.random.randn(n_hidden, n_output) * 0.01
+b2 = np.zeros((1, n_output))
+
+print("神经网络初始化完成")
+\end{lstlisting}
+
+\subsection{算法伪代码}
+\begin{algorithm}[htbp]
+  \caption{梯度下降算法}
+  \label{alg:gradient_descent}
+  \begin{algorithmic}[1]
+    \REQUIRE 学习率 $\eta$，最大迭代次数 $T$
+    \ENSURE 优化后的参数 $\theta$
+    \STATE 初始化参数 $\theta_0$
+    \FOR{$t = 1$ to $T$}
+      \STATE 计算梯度：$g_t \leftarrow \nabla_{\theta} L(\theta_{t-1})$
+      \STATE 更新参数：$\theta_t \leftarrow \theta_{t-1} - \eta g_t$
+      \IF{$\|g_t\| < \epsilon$}
+        \STATE \textbf{break} \COMMENT{梯度足够小，提前停止}
+      \ENDIF
+    \ENDFOR
+    \RETURN $\theta_T$
+  \end{algorithmic}
+\end{algorithm}
+
+\section{参考文献引用}
+\label{sec:citation}
+
+\subsection{基本引用方法}
+在模板中引用参考文献：
+
+\begin{itemize}
+  \item 单个引用：PDH稳频技术是激光频率锁定的核心方法\cite{Black2001}
+  \item 多个引用：集成光子学在通信\cite{Coldren2012}、传感\cite{Bauters2011}和量子计算\cite{Akahane2003}等领域有广泛应用
+  \item 上标引用：前人研究\cite{Agrawal2000,2012Baumgartel}表明...
+\end{itemize}
+
+\subsection{引用样式}
+\begin{table}[htbp]
+  \centering
+  \caption{参考文献引用样式}
+  \label{tab:citation_styles}
+  \begin{tabular}{ll}
+    \toprule[1.5pt]
+    {\hei 命令} & {\hei 效果} \\
+    \midrule[1pt]
+    \verb|\cite{key}| & 数字上标形式[1] \\
+    \verb|\parencite{key}| & 数字括号形式[1] \\
+    \verb|\textcite{key}| & 作者-年份形式（需要设置） \\
+    \verb|\upcite{key}| & 上标形式（自定义命令） \\
+    \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
+\section{本章小结}
+本章介绍了 NUDT 论文模板的基础使用方法，包括：
+\begin{itemize}
+  \item 文档结构与基本设置
+  \item 字体、段落与列表
+  \item 表格、图片的插入与排版
+  \item 数学公式的编写
+  \item 定理、证明、算法等环境的创建
+  \item 代码高亮与参考文献引用
+\end{itemize}
+
+在下一章中，我们将学习更高级的排版技巧和模板功能。

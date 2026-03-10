@@ -1,81 +1,95 @@
+以下是可直接粘贴到 README.md 文件的完整内容：
+# NUDT 学位论文 LaTeX 模板
 
-# 更新记录
-+ **2024年12月19日**：支持独创性声明以pdf文件插入，不用每次改完论文都用pdf编辑器插入了。
-+ **2024年10月11日**：由于之前存在几个模板仓库，大家看着比较混乱，有的不支持专硕等，还有就是存在目录开始空白页不显示页眉页脚的问题（TomHeaven模板修正了，但是目录页好像不显示，而且这个模板专硕的话还要手动修改），这里统一修正一下，顺便介绍一下关键用法，提高效率。
+本仓库提供了一个用于撰写国防科技大学（NUDT）硕士/博士学位的 LaTeX 模板。此模板统一并修正了以往多个版本中存在的不一致问题（如专硕支持、目录页眉页脚显示等），旨在提供清晰、高效且跨平台兼容的论文写作体验。
 
-# 已测试配置
-1. win11 + vscode + texlive2021、2024
-1. win11（wsl2+ubuntu20.04）+ vscode + texlive2019（实测同一台机器编译速度是上面3倍，前提是字体得拷到wsl里，不能做软链接，win和wsl的I/O比较慢）
+## 更新记录
++ **2026年3月11日**：优化字体配置逻辑和目录结构，增加对 Windows 和 Linux 系统的跨平台支持。现在可通过文档类选项 `windows` 或 `linux` 自动适配对应操作系统的字体，无需手动修改 `.cls` 文件。
++ **2024年10月11日**：重构模板仓库，统一格式规范。主要修正包括：完善对专业学位（专硕）的支持，修复目录页前后空白页的页眉页脚显示问题，并整合了关键使用说明以提高效率。
 
-# 用法介绍
-## 编译
-主体文件`mainpaper.tex`，在vscode中编译即可，编译链：*"xelatex -> biber -> xelatex*2"*（由于参考文献若用biblatex生成，故使用biber选项，当然也可以不用，biber与bibtex区别自行了解）
-## 不同版本的论文
+## 系统要求与测试环境
+模板已在以下环境中测试通过：
+1.  **Windows 11** + VSCode + TeX Live 2021 / 2024
+2.  **Windows 11 (WSL2, Ubuntu 20.04)** + VSCode + TeX Live 2019
+    *   (实测在 WSL2 中编译速度约为纯 Windows 环境的3倍，但需将字体文件复制到 WSL 内，而非使用软链接，以避免跨系统 I/O 性能瓶颈)
 
-最终论文分为四个版本,分别是：评阅版明评、评阅版盲评、存档版明评、存档版盲评
+## 快速开始
+### 1. 获取与编译
+1.  **获取模板**：克隆或下载本仓库至本地。
+2.  **主文件**：论文的主体内容在 `mainpaper.tex` 中编辑。
+3.  **编译**：在 VSCode 或其他编辑器中编译 `mainpaper.tex` 即可。
+    *   **推荐编译链**：`xelatex -> biber -> xelatex -> xelatex`
+    *   此编译链适用于使用 `biblatex` 生成参考文献的情况（通过 `biber` 选项启用）。若使用传统 `bibtex`，编译链为 `xelatex -> bibtex -> xelatex -> xelatex`。
 
-控制评阅版和存档版的命令在`mainpaper.tex`里（100行左右，如下） ：
-```tex
-% %评阅版论文
-% % \newif\ifreview\reviewtrue
-% %存档版论文
-% \newif\ifreview\reviewfalse
-```
-`独创性声明`是需要扫描件的，因此只需要替换根目录里的pdf文件即可。
+### 2. 生成论文的不同版本
+最终论文分为四个版本：评阅版明评、评阅版盲评、存档版明评、存档版盲评。版本控制通过 `mainpaper.tex` 主文件中的选项和条件语句实现。
 
-**方括号里面参数：**
-|                                                                                                             |                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| 硕士/博士论文                                                                                               | master/doctor                                                                                         |
-| 专硕                                                                                                        | prof                                                                                                  |
-| 双面打印                                                                                                    | twoside                                                                                               |
-| 参考文献若用biblatex生成，相应编译链变为：xelatex -> biber -> xelatex*2，否则xelatex -> bibtex -> xelatex*2 | biber                                                                                                 |
-| 字体选项                                                                                                    | winttf(windows下面的字体名字)，ttf(ubuntu下面的字体名字)，otf等（这些是师兄师姐们推荐打印好看的字体） |
-| 盲评                                                                                                        | anon                                                                                                  |
-| 个人成果的文献若和参考文献一样是导出的bib，不是手动填写则使用                                               | resumebib                                                                                             |
+**在文档类选项中控制核心属性**：
+| 选项 | 说明 |
+| :--- | :--- |
+| `master`/`doctor` | 硕士/博士学位论文 |
+| `prof` | 专业学位（专硕） |
+| `twoside` | 双面打印 |
+| `biber` | 使用 `biblatex` + `biber` 生成参考文献（对应上述编译链） |
+| `ttf`, `otf`, `fz`, `fandol` | 字体方案（见下方[字体配置](#字体配置)说明） |
+| `windows`/`linux` | **（新增）** 指定编译操作系统，以自动调用正确的字体配置 |
+| `anon` | 生成盲评版本（匿名作者、导师等信息） |
+| `resumebib` | 使用 `biblatex` 从 `.bib` 文件生成作者成果列表（需与 `biber` 选项同用） |
 
+**示例**：一个专硕、明评、双面打印、使用 `biblatex`、在 Windows 下编译的配置如下：
+latex
+\documentclass[master,twoside,biber,prof,ttf,windows]{nudtpaper}
 
-通过主`mainpaper.tex`文件开头语句控制,如专硕明评双面打印标准字体：
-```latex
-\documentclass[master,twoside,biber,prof,ttf]{nudtpaper}
-```
-
-
-# 关于字体（很多问题出在这里）
-1. 学校word模板中的字体有：
-+ 仿宋_GB2312
-+ Times New Roman
-+ 黑体
-+ 宋体（latex模板中宋体加粗用华文中宋代替）
-+ 楷体_GB2312
-+ Arial
-
-2. windows下字体名可能略有出入，查找字体属性，把后缀名补齐，例如：仿宋GB2312 v2.00.ttf
-![alt text](image.png)
-在nudtpaper.cls文件下
-![alt text](image-1.png)
-
-3.linux下则需要先刷新字体缓存：fc-cache -fv，而后在终端输入fc-list，查找相应的名字。
-
-# 编译问题
-1. XeLaTeX 编译卡时间，一般就是因为找字体时间太长(还有就是win下面太慢了，我在wsl下编译实测速度提升3倍)。   
-可在编译前刷新字体缓存：fc-cache -fv
-
-1. 出现字形不可获得的警告信息，一般是因为latex公式的字体缩放不到期望的大小，会用最相近的大小代替，可忽略。
+在 Linux 系统下编译时，只需将 `windows` 改为 `linux`：
+latex
+\documentclass[master,twoside,biber,prof,ttf,linux]{nudtpaper}
 
 
-# vscode中配置
+**控制评阅/存档版**：
+在 `mainpaper.tex` 文件中（约第100行附近），通过 `\ifreview` 开关控制：
+latex
+% 评阅版论文
+% \newif\ifreview\reviewtrue
+% 存档版论文
+\newif\ifreview\reviewfalse
+
+
+**关于独创性声明**：
+模板已支持将签字扫描后的 `独创性声明扫描件.pdf` 直接插入最终论文。只需将该文件放置在根目录，模板会自动处理，无需每次用 PDF 编辑器手动合并。
+
+## 字体配置
+字体问题是编译失败和格式错误的常见原因。模板已针对 Windows 和 Linux 系统分别预置了字体配置方案。
+
+### 1. 学校模板要求字体
+*   中文：仿宋_GB2312， 黑体， 宋体（本模板中宋体加粗由“华文中宋”替代）， 楷体_GB2312
+*   英文：Times New Roman, Arial
+
+### 2. 模板的字体选择逻辑
+1.  **指定操作系统**：在文档类选项中声明 `windows` 或 `linux`。
+2.  **选择字体类型**：在文档类选项中声明 `ttf` (Windows系统字体/文泉驿)、`otf` (Adobe/Noto)、`fz` (方正)、`fandol` 中的一种。
+3.  模板会根据`操作系统`和`字体类型`的组合，自动加载对应的字体族。
+
+### 3. 如何确认和安装字体
+*   **Windows**：字体名可能包含版本号。在“设置”->“个性化”->“字体”中搜索并查看字体属性，获取其完整名称（如`仿宋GB2312 v2.00.ttf`）。
+*   **Linux (如Ubuntu)**：
+    bash
+    # 安装常用开源中文字体
+    sudo apt-get install fonts-wqy-zenhei fonts-wqy-microhei fonts-noto-cjk fonts-arphic-ukai fonts-dejavu
+    # 刷新字体缓存
+    fc-cache -fv
+    # 查看已安装字体名，用于排查
+    fc-list
+
+
+## 故障排查
+1.  **XeLaTeX 编译缓慢**：通常是因为系统字体缓存问题或跨系统文件访问慢（如从Windows访问WSL内的文件）。
+    *   **解决**：尝试在编译前刷新字体缓存：`fc-cache -fv`。对于WSL用户，建议将项目文件和工作区完全放在WSL文件系统内进行编译，速度显著提升。
+2.  **字形替换警告**：LaTeX 在缩放数学公式字体时，若找不到精确尺寸，会使用最接近的尺寸替代。此类警告通常可忽略，不影响最终排版效果。
+3.  **字体缺失错误**：检查是否正确指定了`windows`/`linux`选项，并确保对应系统上安装了所选字体类型包含的字体。
+
+## VSCode 配置示例
+以下 `settings.json` 配置可供参考，已包含针对本模板的优化编译链和清理设置。
 ```json
-    /****latex配置****/
-    // 设置是否自动编译
-    "latex-workshop.latex.autoBuild.run": "never",
-    //右键菜单
-    "latex-workshop.showContextMenu": true,
-    //从使用的包中自动补全命令和环境
-    "latex-workshop.intellisense.package.enabled": true,
-    //编译出错时设置是否弹出气泡设置
-    "latex-workshop.message.error.show": false,
-    "latex-workshop.message.warning.show": false,
     // 编译工具和命令
     "latex-workshop.latex.tools": [
         {
@@ -171,6 +185,15 @@
             ]
         },
         {
+            "name": "大论文2：xelatex -> biber -> xelatex*2",
+            "tools": [
+                "xelatex",
+                "biber",
+                "xelatex",
+                "xelatex"
+            ]
+        },
+        {
             "name": "xelatex -> bibtex -> xelatex*2",
             "tools": [
                 "xelatex",
@@ -219,9 +242,14 @@
     "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
     /****end latex****/
 ```
-# 联系方式
-+ ballad_l@163.com
-# 致谢
-主体模版修改自前辈们的工作，解决了一些配置问题：   
-+ https://github.com/liubenyuan/nudtpaper
-+ https://github.com/TomHeaven/nudt_thesis.git
+
+
+## 支持与联系
+如果在使用中遇到问题或有改进建议，欢迎通过以下方式联系：
++ **邮箱**：ballad_l@163.com
++ **建议**：请尽量详细描述您遇到的问题、使用的操作系统、TeX发行版版本以及相关的编译日志。
+
+## 致谢
+本模板的诞生与发展离不开前辈们的工作，在此特别感谢：
++ 原始模板基础：[liubenyuan/nudtpaper](https://github.com/liubenyuan/nudtpaper)
++ 提供了重要修正与参考：[TomHeaven/nudt_thesis](https://github.com/TomHeaven/nudt_thesis)

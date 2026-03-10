@@ -1,165 +1,242 @@
-%% This is file `mainpaper.tex',
-%% modified based on the following projects:
+%% 本文件为 `mainpaper.tex`
 %%
+%% 本模板基于以下项目修改和集成：
 %% - NUDTPaper: https://github.com/liubenyuan/nudtpaper
-%%   by Liu Benyuan <liubenyuan@gmail.com>
+%%   作者：Liu Benyuan <liubenyuan@gmail.com>
 %% - NUDT_Thesis: https://github.com/TomHeaven/nudt_thesis
-%%   by TomHeaven <tomheavenly@gmail.com>
+%%   作者：TomHeaven <tomheavenly@gmail.com>
 %%
-%% This file is a customized version created by ballad <ballad_l@163.com>.
+%% 当前定制版本维护者：ballad <ballad_l@163.com>
 %%
-%% Major modifications include:
-%% - 由于之前存在几个模板仓库，大家看着比较混乱，有的不支持专硕等，还有就是存在目录开始空白页不显示页眉页脚的问题（TomHeaven模板修正了，但是目录页好像不显示，而且这个模板专硕的话还要手动修改），这里统一修正一下，顺便介绍一下关键用法，提高效率。（2024年10月11日）
+%% 主要修改与集成内容：
+%% 1. 统一格式规范，解决了以往多个模板仓库并存导致的混乱问题。
+%% 2. 完善对专业学位（专硕）的支持。
+%% 3. 修正目录页前后空白页的页眉页脚显示问题。
+%% 4. 集成跨平台字体配置，通过 `windows` 或 `linux` 选项自动适配操作系统。
+%% 5. 优化了版本控制逻辑和编译目录结构。
+%%    (最近更新：2026年3月11日)
 %%
-%% The original projects are licensed under the MIT License.
-%% This modified version is also released under the MIT License.
-%% Any suggestions: Any Suggestions: ballad <ballad_l@163.com>
-%% 
+%% 原项目基于 MIT 协议发布。
+%% 本修改版本同样基于 MIT 协议发布。
+%%
+%% 如有任何问题或建议，请联系：ballad <ballad_l@163.com>
+%%
 
+% ============================================================================
+% 论文版本控制说明
+% ============================================================================
+% 本模板可生成四种最终论文版本：
+% 1. 评阅版明评
+% 2. 评阅版盲评
+% 3. 存档版明评
+% 4. 存档版盲评
+%
+% 版本生成方法：
+% 1. 【明评/盲评】由文档类选项 `anon` 控制。
+%    - 传入 `anon` 选项：生成盲评版（隐去作者、导师等信息）。
+%    - 不传 `anon` 选项：生成明评版（显示完整信息）。
+%
+% 2. 【评阅版/存档版】由本文件内（约第100行）的 `\ifreview` 开关控制。
+%    - 取消注释 `\reviewtrue`：生成评阅版。
+%    - 取消注释 `\reviewfalse`：生成存档版（默认）。
+%
+% 独创性声明：
+% 请将签好字的独创性声明扫描为 PDF，命名为“独创性声明扫描件.pdf”并放置于
+% 项目根目录，模板将自动将其插入最终论文，无需每次手动合并。
 
-% 最终论文分为四个版本,分别是：评阅版明评、评阅版盲评、存档版明评、存档版盲评
+% ============================================================================
+% 文档类选项详解
+% ============================================================================
+% 常用选项组合示例：
+%
+% 【Windows 下，明评，专硕，双面打印，使用 biber 和 ttf 字体】
+% \documentclass[master,twoside,biber,prof,ttf,windows]{src/nudtpaper}
+%
+% 【Linux 下，盲评，学硕，单面打印，使用 biber 和 fandol 字体】
+% \documentclass[doctor,biber,anon,fandol,linux]{src/nudtpaper}
+%
+% 选项说明表：
+% | 选项          | 作用说明                                   |
+% |---------------|-------------------------------------------|
+% | master/doctor | 学位类型：硕士 / 博士                     |
+% | prof          | 专业学位（专硕）                           |
+% | twoside       | 双面打印                                   |
+% | biber         | 使用 biblatex + biber 生成参考文献         |
+% | ttf/otf/fz/fandol | 字体方案（详见 README.md）          |
+% | windows/linux | **关键**：指定编译的操作系统，以自动调用对应字体配置 |
+% | anon          | 生成盲评版本（匿名）                       |
+% | resumebib     | 使用 biblatex 从 .bib 文件生成成果列表     |
 
-% 控制评阅版和存档版的命令在此文件的后面（100行左右，如下） ：
+% 根据您的操作系统，选择并取消注释其中一行进行编译
+% 默认使用 Windows 配置
+\documentclass[master,twoside,biber,prof,ttf,windows]{src/nudtpaper}
+% 在 Linux 系统上编译时，请取消注释下行并注释上一行
+% \documentclass[master,twoside,biber,prof,ttf,linux]{src/nudtpaper}
 
-% %评阅版论文
-% % \newif\ifreview\reviewtrue
-% %存档版论文
-% \newif\ifreview\reviewfalse
-
-% 生成盲评版，则在\documentclass[]选项里传入anon，否则不传
-
-% 下面这些可选参数分别代表：[硕士，双面打印，使用biber编译参考文献，专硕，使用学校要求的ttf字体，明评（不添加anon）]
-\documentclass[master,twoside,biber,prof,ttf]{nudtpaper}
-
-% 明评
-% \documentclass[master,twoside,biber,prof,ttf]{nudtpaper}
-
+% ============================================================================
+% 导言区配置
+% ============================================================================
+% 加载参考文献数据库
 \addbibresource[location=local]{ref/refs.bib}
-\usepackage{mynudt}
+
+% 加载自定义宏包和用户设置
+\usepackage{src/mynudt}
+% 加载表格相关宏包
 \usepackage{multirow,array,makecell}
-% -------------------------允许算法跨页-------------
+
+% ------------------------- 自定义跨页算法环境 -------------------------
+% 此环境允许一个算法跨越多页显示
 \makeatletter
 \newenvironment{breakablealgorithm}
 {% \begin{breakablealgorithm}
-\begin{center} %
-\refstepcounter{algorithm}% New algorithm
-%\hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
-\hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
-\renewcommand{\caption}[2][\relax]{% Make a new \caption
+\begin{center}%
+\refstepcounter{algorithm}% 新建算法计数器
+\hrule height.8pt depth0pt \kern2pt% 顶部横线
+\renewcommand{\caption}[2][\relax]{% 重定义 caption
 {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}
-
 \ifx\relax##1\relax
-
 \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
-
 \else
-
 \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
-
 \fi
-
 \kern2pt\hrule\kern2pt
-
 }
-
 }{% \end{breakablealgorithm}
-
-\kern2pt\hrule\relax% \@fs@post for \@fs@ruled
-
-\end{center} %
-
+\kern2pt\hrule\relax% 底部横线
+\end{center}%
 }
-
 \makeatother
 
+% ============================================================================
+% 封面信息设置 (请根据您的实际情况修改)
+% ============================================================================
+\classification{TP393} % 中图分类号
+\serialno{22020103}    % 学号
+\confidentiality{公开} % 密级
+\UDC{004.7}            % UDC号
+% 中文题目（\\ 用于控制封面页的换行）
+\title{面向某应用场景的\\某某技术研究}
+% 用于独创性声明页的题目（纯文本，勿换行）
+\displaytitle{面向某应用场景的某某技术研究}
+\author{科小博}        % 作者姓名
+\zhdate{\zhtoday}      % 中文日期
+% 英文题目
+\entitle{Research on a Certain Technology for a Specific Application Scenario}
+\enauthor{Xiaobo Ke}   % 作者英文名
+\endate{\entoday}      % 英文日期
+\subject{计算机科学与技术}     % 学科专业
+\ensubject{Computer Science and Technology} % 英文专业
+\researchfield{人工智能}       % 研究方向
+\supervisor{大导\quad{}研究员} % 指导教师
+\cosupervisor{小导\quad{}副研究员} % 协助指导教师（如无，请留空）
+\ensupervisor{Prof. Dadao}    % 英文指导教师
+\encosupervisor{Assistant Prof. Xiaodao} % 英文协助指导教师（如无，请留空）
+\papertype{工学}       % 工学/理学
+\enpapertype{Engineering} % 英文论文类型
 
+% 如需使用 nomencl 宏包自动生成符号列表，请取消下行注释
+% \makenomenclature
 
-
-\classification{TP393}
-\serialno{22020103}
-\confidentiality{公开}
-\UDC{004.7}
-\title{面向某应用场景应用场景的\\某某技术研究}
-\displaytitle{面向某应用场景应用场景的某某技术研究}
-\author{科小博}
-\zhdate{\zhtoday}
-\entitle{Research on a certain technology for a certain application scenario}
-\enauthor{Xiaobo Ke}
-\endate{\entoday}
-\subject{计算机科学与技术}
-\ensubject{Computer Science and Technology}
-\researchfield{人工智能}
-\supervisor{大导\quad{}研究员}
-\cosupervisor{小导\quad{}副研究员} % 没有就空着
-\ensupervisor{Prof. Dadao}
-\encosupervisor{Assistant Prof. Xiaodao} % 没有就空着
-\papertype{工学}
-\enpapertype{Engineering}
-% 加入makenomenclature命令可用nomencl制作符号列表。
-
-
-
+% ============================================================================
+% 文档正文开始
+% ============================================================================
 \begin{document}
+
+% 设置图片搜索路径
 \graphicspath{{figures/}}
-% 制作封面，生成目录，插入摘要，插入符号列表 \\
-% 默认符号列表使用denotation.tex，如果要使用nomencl \\
-% 需要注释掉denotation，并取消下面两个命令的注释。 \\
-% cleardoublepage% \\
-% printnomenclature% \\
+
+% ----------------------------------------------------------------------------
+% 封面、目录、图表清单
+% ----------------------------------------------------------------------------
+% 生成论文封面
 \maketitle
+
+% 前辅文部分（使用罗马数字页码）
 \frontmatter
+
+% 生成目录、表目录、图目录
 \tableofcontents
 \listoftables
 \listoffigures
 
-%评阅版论文
+% ----------------------------------------------------------------------------
+% 评阅版/存档版控制开关 (请根据需要选择其一)
+% ----------------------------------------------------------------------------
+% 评阅版论文
 % \newif\ifreview\reviewtrue
-
-%存档版论文
+% 存档版论文
 \newif\ifreview\reviewfalse
 
+% ----------------------------------------------------------------------------
+% 中英文摘要与符号列表
+% ----------------------------------------------------------------------------
 \midmatter
-\input{data/abstract}
-\input{data/denotation}
+% 插入摘要
+\input{subTex/abstract}
+% 插入符号说明表，默认使用 denotation.tex
+% 如需使用 nomencl 生成，请注释上行，并取消下面两行注释
+% \cleardoublepage
+% \printnomenclature
+\input{subTex/denotation}
 
-%书写正文，可以根据需要增添章节; 正文还包括致谢，参考文献与成果
+% ----------------------------------------------------------------------------
+% 论文正文
+% ----------------------------------------------------------------------------
+% 正文部分（使用阿拉伯数字页码）
 \mainmatter
-\input{data/chap01}
-\input{data/chap02}
-% \input{data/chap03}
-% \input{data/chap04}
-% \input{data/chap05}
-% \input{data/chap06}
-% \input{data/test}
+% 插入各章节内容，可根据您的论文结构增删
+\input{subTex/chap01}
+\input{subTex/chap02}
+% \input{subTex/chap03}
+% \input{subTex/chap04}
+% \input{subTex/chap05}
+% \input{subTex/chap06}
+% \input{subTex/test} % 测试章节
 
-\input{data/ack}
+% 致谢
+\input{subTex/ack}
 
+% ----------------------------------------------------------------------------
+% 参考文献
+% ----------------------------------------------------------------------------
 \cleardoublepage
 \phantomsection
-\addcontentsline{toc}{chapter}{参考文献}
-
+\addcontentsline{toc}{chapter}{参考文献} % 手动添加目录项
 \ifisbiber
-{\hyphenpenalty=500 %
-\tolerance=9900 %
-\renewcommand{\baselinestretch}{1.35}
+% 使用 biber (biblatex) 生成参考文献
+{\hyphenpenalty=500%
+\tolerance=9900%
+\renewcommand{\baselinestretch}{1.35} % 调整参考文献行距
 \printbibliography[heading=bibliography, title=参考文献]
-
 }
 \else
+% 使用传统 bibtex 生成参考文献
 \bibliographystyle{bstutf8}
 \bibliography{ref/refs}
 \fi
 
+% ----------------------------------------------------------------------------
+% 作者成果与评阅信息
+% ----------------------------------------------------------------------------
+% 根据是否为盲评版，插入不同的成果信息
 \ifisanon
-\input{data/resumeanon}%在校期间成果（盲评成果）
-\else 
-\input{data/resume}%在校期间成果（明评成果）
-\input{data/reviewinfo} %公开评阅信息
+% 盲评版：插入匿名成果信息
+\input{subTex/resumeanon}
+\else
+% 明评版：插入完整成果信息和公开评阅信息
+\input{subTex/resume}
+\input{subTex/reviewinfo}
 \fi
 
-% 最后，需要的话还要生成附录，全文随之结束。  
+% ----------------------------------------------------------------------------
+% 附录
+% ----------------------------------------------------------------------------
+% 如有附录，在此处插入
 \appendix
 \backmatter
-% \input{data/appendix01}
+% \input{subTex/appendix01}
 
 \end{document}
+% ============================================================================
+% 文档结束
+% ============================================================================
