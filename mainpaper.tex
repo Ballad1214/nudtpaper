@@ -12,7 +12,7 @@
 %% 1. 统一格式规范，解决了以往多个模板仓库并存导致的混乱问题。
 %% 2. 完善对专业学位（专硕）的支持。
 %% 3. 修正目录页前后空白页的页眉页脚显示问题。
-%% 4. 集成跨平台字体配置，通过 `windows` 或 `linux` 选项自动适配操作系统。
+%% 4. 简化字体配置，只保留 ttf、otf、fz 三种字体选项，无需指定操作系统。
 %% 5. 优化了版本控制逻辑和编译目录结构。
 %%    (最近更新：2026年3月11日)
 %%
@@ -41,7 +41,7 @@
 %    - 取消注释 `\reviewfalse`：生成存档版（默认）。
 %
 % 独创性声明：
-% 请将签好字的独创性声明扫描为 PDF，命名为“独创性声明扫描件.pdf”并放置于
+% 请将签好字的独创性声明扫描为 PDF，命名为"独创性声明扫描件.pdf"并放置于
 % 项目根目录，模板将自动将其插入最终论文，无需每次手动合并。
 
 % ============================================================================
@@ -49,11 +49,14 @@
 % ============================================================================
 % 常用选项组合示例：
 %
-% 【Windows 下，明评，专硕，双面打印，使用 biber 和 ttf 字体】
-% \documentclass[master,twoside,biber,prof,ttf,windows]{src/nudtpaper}
+% 【明评，专硕，双面打印，使用 biber 和 ttf 字体】
+% \documentclass[master,twoside,biber,prof,ttf]{src/nudtpaper}
 %
-% 【Linux 下，盲评，学硕，单面打印，使用 biber 和 fandol 字体】
-% \documentclass[doctor,biber,anon,fandol,linux]{src/nudtpaper}
+% 【盲评，学硕，单面打印，使用 biber 和 otf 字体】
+% \documentclass[doctor,biber,anon,otf]{src/nudtpaper}
+%
+% 【明评，博士，使用方正字体】
+% \documentclass[doctor,biber,fz]{src/nudtpaper}
 %
 % 选项说明表：
 % | 选项          | 作用说明                                   |
@@ -62,16 +65,17 @@
 % | prof          | 专业学位（专硕）                           |
 % | twoside       | 双面打印                                   |
 % | biber         | 使用 biblatex + biber 生成参考文献         |
-% | ttf/otf/fz/fandol | 字体方案（详见 README.md）          |
-% | windows/linux | **关键**：指定编译的操作系统，以自动调用对应字体配置 |
+% | ttf/otf/fz    | 字体方案：系统字体/Adobe字体/方正字体     |
 % | anon          | 生成盲评版本（匿名）                       |
 % | resumebib     | 使用 biblatex 从 .bib 文件生成成果列表     |
 
-% 根据您的操作系统，选择并取消注释其中一行进行编译
-% 默认使用 Windows 配置
-\documentclass[master,twoside,biber,prof,ttf,windows]{src/nudtpaper}
-% 在 Linux 系统上编译时，请取消注释下行并注释上一行
-% \documentclass[master,twoside,biber,prof,ttf,linux]{src/nudtpaper}
+% 根据您的字体需求，选择并取消注释其中一行进行编译
+% 默认使用 TTF 字体（Windows/Linux 系统字体）
+\documentclass[master,twoside,biber,prof,ttf]{src/nudtpaper}
+% 使用 OTF 字体（Adobe/Noto 字体）
+% \documentclass[master,twoside,biber,prof,otf]{src/nudtpaper}
+% 使用方正字体
+% \documentclass[master,twoside,biber,prof,fz]{src/nudtpaper}
 
 % ============================================================================
 % 导言区配置

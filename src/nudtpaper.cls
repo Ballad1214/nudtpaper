@@ -21,7 +21,7 @@
 %% 感谢 sofoot 提供的原始 NUDT 论文类！
 %%
 %% 本文件由 Ballad 在原有模板基础上进行了修改和优化，主要修改包括：
-%% 1. 添加跨平台字体适配功能，通过 `windows` 和 `linux` 选项自动选择对应操作系统字体
+%% 1. 简化字体选项，只保留 ttf、otf、fz 三种字体配置
 %% 2. 修正目录页前后空白页的页眉页脚显示问题
 %% 3. 支持直接插入独创性声明扫描件 PDF 文件，无需手动合并
 %% 4. 优化文档结构与代码注释，提高可维护性
@@ -46,27 +46,19 @@
 \DeclareOption{prof}{\isproftrue}       % 专业学位（专硕）
 \DeclareOption*{\PackageWarning{nudtpaper}{未知选项 '\CurrentOption'}}
 
-% 字体选项
+% 字体选项（简化版，只保留 ttf、otf、fz）
 \newif\ifisttf\isttffalse
 \newif\ifisotf\isotffalse
 \newif\ifisfz\isfzfalse
-\newif\ifisfandol\isfandolfalse
 \DeclareOption{ttf}{\isttftrue}      % Windows/Linux 系统字体
 \DeclareOption{otf}{\isotftrue}      % Adobe/Noto 字体
 \DeclareOption{fz}{\isfztrue}        % 方正字体
-\DeclareOption{fandol}{\isfandoltrue}% Fandol 字体
 
 % 参考文献处理选项
 \newif\ifisbiber\isbiberfalse
 \DeclareOption{biber}{\isbibertrue}  % 使用 biblatex + biber
 \newif\ifisresumebib\isresumebibfalse
 \DeclareOption{resumebib}{\isresumebibtrue} % 使用 biblatex 生成成果列表
-
-% 跨平台编译选项（新增）
-\newif\ifiswindows\iswindowstrue
-\newif\ifislinux\islinuxfalse
-\DeclareOption{windows}{\iswindowstrue\islinuxfalse} % Windows 系统
-\DeclareOption{linux}{\islinuxtrue\iswindowsfalse}   % Linux 系统
 
 \ProcessOptions\relax
 
@@ -234,15 +226,15 @@
 \xeCJKsetcharclass{"2E80}{"FFFF}{1}
 
 % ============================================================================
-% 5. 跨平台字体配置
+% 5. 字体配置
 % ============================================================================
-% 5.1 Windows 字体配置
-\newcommand{\installttfwin}{
-  %%%% Windows 论文字体
+% 5.1 TTF 字体配置
+\newcommand{\installttf}{
+  %%%% 英文字体
   \setmainfont{Times New Roman}
   \setsansfont{Arial}
   \setmonofont{Courier New}
-  %%%% 使用 Office 字体族
+  %%%% 中文字体
   \setCJKmainfont[BoldFont={STZhongsong}]{SimSun}
   \setCJKsansfont{SimHei} % 黑体
   \setCJKmonofont{FangSong_GB2312} % 仿宋
@@ -253,12 +245,13 @@
   \setCJKfamilyfont{kai}{KaiTi_GB2312}   % 楷体
 }
 
-\newcommand{\installotfwin}{
-  %%%% Windows 论文字体
-  \setmainfont{Times New Roman PS Std}
+% 5.2 OTF 字体配置（Adobe/Noto 字体）
+\newcommand{\installotf}{
+  %%%% 英文字体
+  \setmainfont{Times New Roman}
   \setsansfont{Arial}
   \setmonofont{Courier New}
-  %%%% 使用 Adobe 字体族
+  %%%% 中文字体
   \setCJKmainfont[BoldFont={STZhongsong}]{Adobe Song Std}
   \setCJKsansfont{Adobe Heiti Std} % 黑体
   \setCJKmonofont{Adobe Fangsong Std} % 仿宋
@@ -269,12 +262,13 @@
   \setCJKfamilyfont{kai}{Adobe Kaiti Std}   % 楷体
 }
 
-\newcommand{\installfzwin}{
-  %%%% Windows 论文字体
-  \setmainfont{Times New Roman PS Std}
+% 5.3 FZ 字体配置（方正字体）
+\newcommand{\installfz}{
+  %%%% 英文字体
+  \setmainfont{Times New Roman}
   \setsansfont{Arial}
   \setmonofont{Courier New}
-  %%%% 使用方正字体族
+  %%%% 中文字体
   \setCJKmainfont[BoldFont={FZYaSong-DB-GBK}]{FZShuSong_GB18030-Z01}
   \setCJKsansfont{FZHei-B01} % 黑体
   \setCJKmonofont{FZFangSong-Z02} % 仿宋
@@ -285,159 +279,21 @@
   \setCJKfamilyfont{kai}{FZKai-Z03}     % 楷体
 }
 
-\newcommand{\installfandolwin}{
-  %%%% Windows 论文字体
-  \setmainfont{Times New Roman PS Std}
-  \setsansfont{Arial}
-  \setmonofont{Courier New}
-  %%%% 使用 Fandol 字体族
-  \setCJKmainfont{FandolSong}
-  \setCJKsansfont{FandolHei} % 黑体
-  \setCJKmonofont{FandolFang} % 仿宋
-  %%%% 字体别名
-  \setCJKfamilyfont{song}{FandolSong}
-  \setCJKfamilyfont{hei}{FandolHei}
-  \setCJKfamilyfont{fs}{FandolFang} % 仿宋
-  \setCJKfamilyfont{kai}{FandolKai} % 楷体
-}
-
-% 5.2 Linux 字体配置
-\newcommand{\installttflinux}{
-  %%%% Linux 论文字体
-  \setmainfont{Times New Roman}[
-    Path = /usr/share/fonts/truetype/msttcorefonts/,
-    Extension = .ttf,
-    UprightFont = *,
-    BoldFont = *bd,
-    ItalicFont = *i,
-    BoldItalicFont = *bi
-  ]
-  \setsansfont{Arial}[
-    Path = /usr/share/fonts/truetype/msttcorefonts/,
-    Extension = .ttf,
-    UprightFont = *,
-    BoldFont = *bd,
-    ItalicFont = *i,
-    BoldItalicFont = *bi
-  ]
-  \setmonofont{Courier New}[
-    Path = /usr/share/fonts/truetype/msttcorefonts/,
-    Extension = .ttf,
-    UprightFont = *,
-    BoldFont = *bd,
-    ItalicFont = *i,
-    BoldItalicFont = *bi
-  ]
-  %%%% 使用文泉驿和思源字体
-  \setCJKmainfont[
-    Path = /usr/share/fonts/truetype/wqy/,
-    UprightFont = wqy-microhei.ttc,
-    BoldFont = wqy-microhei.ttc,
-    ItalicFont = wqy-microhei.ttc
-  ]{WenQuanYi Micro Hei}
-  \setCJKsansfont{WenQuanYi Micro Hei}
-  \setCJKmonofont{WenQuanYi Micro Hei Mono}
-  %%%% 字体别名
-  \setCJKfamilyfont{song}{WenQuanYi Micro Hei}
-  \setCJKfamilyfont{hei}{WenQuanYi Zen Hei}
-  \setCJKfamilyfont{fs}{AR PL UMing CN}
-  \setCJKfamilyfont{kai}{AR PL UKai CN}
-}
-
-\newcommand{\installotflinux}{
-  %%%% Linux 论文字体
-  \setmainfont{Times New Roman}
-  \setsansfont{Arial}
-  \setmonofont{Courier New}
-  %%%% 使用思源 CJK 字体
-  \setCJKmainfont{Noto Serif CJK SC}
-  \setCJKsansfont{Noto Sans CJK SC}
-  \setCJKmonofont{Noto Sans Mono CJK SC}
-  %%%% 字体别名
-  \setCJKfamilyfont{song}{Noto Serif CJK SC}
-  \setCJKfamilyfont{hei}{Noto Sans CJK SC}
-  \setCJKfamilyfont{fs}{Noto Serif CJK SC}
-  \setCJKfamilyfont{kai}{AR PL UKai CN}
-}
-
-\newcommand{\installfzlinux}{
-  %%%% Linux 论文字体
-  \setmainfont{Times New Roman}
-  \setsansfont{Arial}
-  \setmonofont{Courier New}
-  %%%% 使用 Fandol 字体（跨平台）
-  \setCJKmainfont{FandolSong}
-  \setCJKsansfont{FandolHei}
-  \setCJKmonofont{FandolFang}
-  %%%% 字体别名
-  \setCJKfamilyfont{song}{FandolSong}
-  \setCJKfamilyfont{hei}{FandolHei}
-  \setCJKfamilyfont{fs}{FandolFang}
-  \setCJKfamilyfont{kai}{FandolKai}
-}
-
-\newcommand{\installfandollinux}{
-  %%%% Linux 论文字体
-  \setmainfont{Times New Roman}
-  \setsansfont{Arial}
-  \setmonofont{Courier New}
-  %%%% 使用 Fandol 字体
-  \setCJKmainfont{FandolSong}
-  \setCJKsansfont{FandolHei}
-  \setCJKmonofont{FandolFang}
-  %%%% 字体别名
-  \setCJKfamilyfont{song}{FandolSong}
-  \setCJKfamilyfont{hei}{FandolHei}
-  \setCJKfamilyfont{fs}{FandolFang}
-  \setCJKfamilyfont{kai}{FandolKai}
-}
-
-% 5.3 根据操作系统选择字体安装命令
-\ifiswindows
-  \ifisttf
-    \installttfwin
-  \fi
-  \ifisotf
-    \installotfwin
-  \fi
-  \ifisfz
-    \installfzwin
-  \fi
-  \ifisfandol
-    \installfandolwin
-  \fi
+% 5.4 根据字体选项选择配置
+\ifisttf
+  \installttf
+\fi
+\ifisotf
+  \installotf
+\fi
+\ifisfz
+  \installfz
 \fi
 
-\ifislinux
-  \ifisttf
-    \installttflinux
-  \fi
-  \ifisotf
-    \installotflinux
-  \fi
-  \ifisfz
-    \installfzlinux
-  \fi
-  \ifisfandol
-    \installfandollinux
-  \fi
-\fi
-
-% 5.4 如果没有指定操作系统，默认使用Windows字体
-\ifiswindows\else\ifislinux\else
-  \ifisttf
-    \installttfwin
-  \fi
-  \ifisotf
-    \installotfwin
-  \fi
-  \ifisfz
-    \installfzwin
-  \fi
-  \ifisfandol
-    \installfandolwin
-  \fi
-\fi\fi
+% 5.5 如果没有指定字体选项，默认使用 TTF
+\ifisttf\else\ifisotf\else\ifisfz\else
+  \installttf
+\fi\fi\fi
 
 % ============================================================================
 % 6. 字体与排版命令定义
