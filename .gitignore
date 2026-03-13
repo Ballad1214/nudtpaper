@@ -17,6 +17,9 @@
 *.gz
 *.bcf
 *.xml
+mainpaper.synctex.gz
+mainpaper.bbl
+mainpaper.thm
 #################
 ## Eclipse
 #################
