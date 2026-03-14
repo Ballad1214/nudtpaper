@@ -66,10 +66,10 @@
 ## 字体配置
 字体问题是编译失败和格式错误的常见原因。模板提供了三种预置的字体方案，用户只需选择适合自己系统的方案即可。
 ### 必要准备
-安装字体（仅Linux，Windows自己装）
+安装free字体（仅Linux，Windows自己装）
 ```bash
 sudo apt-get update
-sudo apt-get install -y texlive-fonts-recommended texlive-fonts-extra
+sudo apt-get install fonts-freefont-ttf
 ```
 
 ### 1. 学校模板要求字体
