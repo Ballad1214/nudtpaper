@@ -13,6 +13,7 @@
 2.  **Windows 11(wsl2+Ubuntu 24.04)** + VSCode + TeX Live2025
 3.  **macOS** + VSCode + MacTeX
 
+
 ## 快速开始
 ### 1. 获取与编译
 1.  **获取模板**：克隆或下载本仓库至本地。
@@ -64,6 +65,12 @@
 
 ## 字体配置
 字体问题是编译失败和格式错误的常见原因。模板提供了三种预置的字体方案，用户只需选择适合自己系统的方案即可。
+### 必要准备
+安装字体（仅Linux，Windows自己装）
+```bash
+sudo apt-get update
+sudo apt-get install -y texlive-fonts-recommended texlive-fonts-extra
+```
 
 ### 1. 学校模板要求字体
 *   中文：仿宋_GB2312， 黑体， 宋体（本模板中宋体加粗由"华文中宋"替代）， 楷体_GB2312
