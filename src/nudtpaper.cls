@@ -40,10 +40,16 @@
 \DeclareOption{doctor}{\ismasterfalse}  % 博士学位论文
 \newif\ifisanon\isanonfalse
 \DeclareOption{anon}{\isanontrue}       % 盲评（匿名）版本
+\newif\ifisreview\isreviewfalse
+\DeclareOption{review}{\isreviewtrue}   % 评阅版本
+
+\newif\ifisaddreview\isaddreviewfalse
+\DeclareOption{addreview}{\isaddreviewtrue} % 复核专家组版本
+
 \newif\ifistwoside\istwosidefalse
 \DeclareOption{twoside}{\istwosidetrue} % 双面打印
 \newif\ifisprof\isproffalse
-\DeclareOption{prof}{\isproftrue}       % 专业学位（专硕）
+\DeclareOption{prof}{\isproftrue}       % 专业学位
 \DeclareOption*{\PackageWarning{nudtpaper}{未知选项 '\CurrentOption'}}
 
 % 字体选项（简化版，只保留 ttf、otf、fz）
@@ -380,7 +386,7 @@
   \fi}
 
 \renewpagestyle{plain}{
-  \sethead{}{\raisebox{.65\baselineskip}{\songti \wuhao \ifisanon{~}\else{国防科技大学研究生院{\ifisprof{专业学位}\else{}\fi}\@optionpaperclass{}学位论文}\fi}}{}%
+  \sethead{}{\raisebox{.65\baselineskip}{\songti \wuhao \ifisanon{~}\else{国防科技大学\@optionpaperclass{}学位论文}\fi}}{}%
   \setfoot{}{{\songti \wuhao 第~\thepage~页}}{}%
   \headrule%
   \footrule%
@@ -635,13 +641,28 @@
     {\par\vspace{2em}\par}
 
 % 公开评阅信息环境
-\newenvironment{reviewinfo}{%
+\newenvironment{reviewinfo}{
     \chapter*{公开评阅信息}
     \addcontentsline{toc}{chapter}{公开评阅信息}
     \xiaosi
     \@afterheading}
     {\par\vspace{2em}\par}
 
+% 答辩委员会信息环境
+\newenvironment{defenseinfo}{
+    \chapter*{答辩委员会}
+    \addcontentsline{toc}{chapter}{答辩委员会}
+    \xiaosi
+    \@afterheading}
+    {\par\vspace{2em}\par}
+
+% 复核专家组信息环境
+\newenvironment{addreviewinfo}{
+    \chapter*{复核专家组}
+    \addcontentsline{toc}{chapter}{复核专家组}
+    \xiaosi
+    \@afterheading}
+    {\par\vspace{2em}\par}
 % ============================================================================
 % 14. 定理与证明环境设置
 % ============================================================================
@@ -765,7 +786,9 @@
   }
   \par
   \vspace*{2.5cm} % 插入空白
-  {\heiti\sanhao \ifisprof{专业学位}\else\@papertype{}\fi\@optionpaperclass{}学位论文}\\
+  {\heiti\sanhao \@optionpaperclass{}学位论文}\\
+    \vspace{10bp}
+    {\heiti\sanhao\ifisprof{（专业学位）}\else{（学术学位）}\fi}\\
   \vspace{12bp}
   {\cusong\erhao[1.25] \@title \par}%
   \vspace{45bp} % 从WORD中得来
@@ -778,18 +801,18 @@
       \fi
         {\fs \hfil\raisebox{-3.7ex}[0pt]{\@author}\hfil{}} & \\[3.2ex]
         \cline{2-2}
-        \ifisprof
-        \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{专\hfill{}业\hfill{}学\hfill{}位\hfill{}类\hfill{}别}} &
-        \else
+        % \ifisprof
+        % \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{专\hfill{}业\hfill{}学\hfill{}位\hfill{}类\hfill{}别}} &
+        % \else
         \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{学\hfill{}科\hfill{}专\hfill{}业}} &
-        \fi
+        % \fi
         {\fs \hfil\raisebox{-3.7ex}[0pt]{\@subject}\hfil{}} & \\[3.2ex]
         \cline{2-2}
-        \ifisprof
-        \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{专\hfill{}业\hfill{}学\hfill{}位\hfill{}领\hfill{}域}} &
-        \else
+        % \ifisprof
+        % \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{专\hfill{}业\hfill{}学\hfill{}位\hfill{}领\hfill{}域}} &
+        % \else
         \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{研\hfill{}究\hfill{}方\hfill{}向}} &
-        \fi
+        % \fi
         {\fs \hfil\raisebox{-3.7ex}[0pt]{\@researchfield}\hfil{}} & \\[3.2ex]
         \cline{2-2}
         \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{指\hfill{}导\hfill{}教\hfill{}师}} &
@@ -806,7 +829,7 @@
 
   \par
   \vfill
-  {\centering \cusong \sanhao \ifisanon{~}\else{国防科技大学研究生院}\fi\\[0.8em]
+  {\centering \cusong \sanhao \ifisanon{~}\else{国防科技大学}\fi\\[0.8em]
     {\@zhdate \par}%
   }
   \vspace{1mm}
@@ -831,11 +854,10 @@
   {\sanhao[1.5]
 A \ifisprof{thesis}\else{dissertation} \fi \\
 Submitted in partial fulfillment of the requirements\\
-for the \ifisprof{professional }\else{}\fi degree of \textsf{\@optionpaperclassen{} of \@enpapertype}\\
-in \textsf{\@ensubject}\\
-\makebox[\textwidth]{\ifisanon{~}\else{Graduate School of National University of %
-Defense Technology}\fi}\\
-\ifisanon{~}\else{Changsha, Hunan, P.\ R.\ China}\fi\\[5mm]
+for the \ifisprof{professional }\else{}\fi degree of \ \ \textsf{\@optionpaperclassen{} of \@enpapertype}\\
+in\ \ \textsf{\@ensubject}\\
+\makebox[\textwidth]{\ifisanon{~}\else{National University of Defense Technology}\fi}\\
+\ifisanon{~}\else{Changsha,\ \ Hunan,\ \ P.R.China}\fi\\[5mm]
 ~\@endate~
   }
   \end{center}\vfill

@@ -13,7 +13,7 @@
 %% 2. 完善对专业学位（专硕）的支持。
 %% 3. 修正目录页前后空白页的页眉页脚显示问题。
 %% 4. 简化字体配置，只保留 ttf、otf、fz 三种字体选项，无需指定操作系统。
-%% 5. 优化了版本控制逻辑和编译目录结构。
+%% 5. 优化了版本控制逻辑，将评阅版/存档版开关改为文档类选项。
 %%    (最近更新：2026年3月11日)
 %%
 %% 原项目基于 MIT 协议发布。
@@ -25,20 +25,18 @@
 % ============================================================================
 % 论文版本控制说明
 % ============================================================================
-% 本模板可生成四种最终论文版本：
-% 1. 评阅版明评
-% 2. 评阅版盲评
-% 3. 存档版明评
-% 4. 存档版盲评
-%
 % 版本生成方法：
 % 1. 【明评/盲评】由文档类选项 `anon` 控制。
 %    - 传入 `anon` 选项：生成盲评版（隐去作者、导师等信息）。
 %    - 不传 `anon` 选项：生成明评版（显示完整信息）。
 %
-% 2. 【评阅版/存档版】由本文件内（约第100行）的 `\ifreview` 开关控制。
-%    - 取消注释 `\reviewtrue`：生成评阅版。
-%    - 取消注释 `\reviewfalse`：生成存档版（默认）。
+% 2. 【评阅版/存档版】由文档类选项 `review` 控制。
+%    - 传入 `review` 选项：生成评阅版（不包含公开评阅信息、答辩委员会、复核专家组）。
+%    - 不传 `review` 选项：生成存档版（包含完整评阅信息）。
+%
+% 3. 【复核版/无需复核】由文档类选项 `addreview` 控制。
+%    - 传入 `addreview` 选项：生成复核版（显示复核专家组信息）。
+%    - 不传 `addreview` 选项：不显示复核专家组信息。
 %
 % 独创性声明：
 % 请将签好字的独创性声明扫描为 PDF，命名为"独创性声明扫描件.pdf"并放置于
@@ -49,14 +47,20 @@
 % ============================================================================
 % 常用选项组合示例：
 %
-% 【明评，专硕，双面打印，使用 biber 和 ttf 字体】
-% \documentclass[master,twoside,biber,prof,ttf]{src/nudtpaper}
+% 【评阅版明评，专硕，双面打印，使用 biber 和 ttf 字体】
+% \documentclass[master,twoside,biber,prof,ttf,review]{src/nudtpaper}
 %
-% 【盲评，学硕，单面打印，使用 biber 和 otf 字体】
-% \documentclass[doctor,biber,anon,otf]{src/nudtpaper}
+% 【评阅版盲评，学硕，单面打印，使用 biber 和 otf 字体】
+% \documentclass[doctor,biber,anon,otf,review]{src/nudtpaper}
 %
-% 【明评，博士，使用方正字体】
+% 【存档版明评，博士，使用方正字体】
 % \documentclass[doctor,biber,fz]{src/nudtpaper}
+%
+% 【存档版盲评，博士，使用方正字体】
+% \documentclass[doctor,biber,fz,anon]{src/nudtpaper}
+%
+% 【存档版明评含复核，专硕，使用方正字体】
+% \documentclass[master,twoside,biber,prof,fz,addreview]{src/nudtpaper}
 %
 % 选项说明表：
 % | 选项          | 作用说明                                   |
@@ -67,15 +71,21 @@
 % | biber         | 使用 biblatex + biber 生成参考文献         |
 % | ttf/otf/fz    | 字体方案：系统字体/Adobe字体/方正字体     |
 % | anon          | 生成盲评版本（匿名）                       |
+% | review        | 生成评阅版（不包含公开评阅信息等）         |
+% | addreview     | 包含复核专家组信息                         |
 % | resumebib     | 使用 biblatex 从 .bib 文件生成成果列表     |
 
-% 根据您的字体需求，选择并取消注释其中一行进行编译
-% 默认使用 TTF 字体（Windows/Linux 系统字体）
-\documentclass[master,twoside,biber,prof,ttf]{src/nudtpaper}
-% 使用 OTF 字体（Adobe/Noto 字体）
+% 根据您的需求，选择并取消注释其中一行进行编译
+% 示例：评阅版明评，专硕，使用TTF字体
+\documentclass[doctor,twoside,biber,prof,ttf]{src/nudtpaper}
+% 示例：存档版明评，专硕，使用OTF字体
 % \documentclass[master,twoside,biber,prof,otf]{src/nudtpaper}
-% 使用方正字体
-% \documentclass[master,twoside,biber,prof,fz]{src/nudtpaper}
+% 示例：存档版明评含复核，学硕，使用方正字体
+% \documentclass[master,twoside,biber,fz,addreview]{src/nudtpaper}
+% 示例：评阅版盲评，学术学位博士，使用TTF字体
+% \documentclass[doctor,biber,anon,ttf,review]{src/nudtpaper}
+% 示例：存档版盲评，学术学位博士，使用OTF字体
+% \documentclass[doctor,biber,anon,otf]{src/nudtpaper}
 
 % ============================================================================
 % 导言区配置
@@ -164,14 +174,6 @@
 \listoffigures
 
 % ----------------------------------------------------------------------------
-% 评阅版/存档版控制开关 (请根据需要选择其一)
-% ----------------------------------------------------------------------------
-% 评阅版论文
-% \newif\ifreview\reviewtrue
-% 存档版论文
-\newif\ifreview\reviewfalse
-
-% ----------------------------------------------------------------------------
 % 中英文摘要与符号列表
 % ----------------------------------------------------------------------------
 \midmatter
@@ -195,7 +197,7 @@
 % \input{subTex/chap04}
 % \input{subTex/chap05}
 % \input{subTex/chap06}
-% \input{subTex/test} % 测试章节
+% \input{subTex/chap07}
 
 % 致谢
 \input{subTex/ack}
@@ -227,9 +229,20 @@
 % 盲评版：插入匿名成果信息
 \input{subTex/resumeanon}
 \else
-% 明评版：插入完整成果信息和公开评阅信息
+% 明评版：根据是否为评阅版决定是否插入评阅信息
+\ifisreview
+% 评阅版：只插入成果信息，不插入评阅、答辩信息
+\input{subTex/resume}
+\else
+% 存档版：插入成果信息和评阅、答辩信息
 \input{subTex/resume}
 \input{subTex/reviewinfo}
+\input{subTex/defenseinfo}
+\ifisaddreview
+% 如果包含复核版选项，插入复核专家组信息
+\input{subTex/addreviewinfo}
+\fi
+\fi
 \fi
 
 % ----------------------------------------------------------------------------
@@ -238,7 +251,7 @@
 % 如有附录，在此处插入
 \appendix
 \backmatter
-% \input{subTex/appendix01}
+\input{subTex/appendix01}
 
 \end{document}
 % ============================================================================
