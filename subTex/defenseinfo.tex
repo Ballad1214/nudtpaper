@@ -1,14 +1,11 @@
 \begin{defenseinfo}
-  
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1\linewidth}}
 \begin{table}[tbh]
-	\centering
-	\resizebox{1\textwidth}{!}{%
-	\xiaosi
-	\renewcommand{\arraystretch}{2}
-	\begin{tabular}{|>{\centering\arraybackslash}m{0.2\linewidth}|
-					 >{\centering\arraybackslash}m{0.2\linewidth}|
-					 >{\centering\arraybackslash}m{0.4\linewidth}|
-					 >{\centering\arraybackslash}m{0.2\linewidth}|}
+    \centering
+    \setcellgapes{11pt} % 设置表格内上下内边距
+    \makegapedcells % 所有单元格内容垂直居中
+    \begin{tabular}{|C{0.17}|C{0.17}|C{0.4}|C{0.16}|} % 设置四列，分别占17%、17%、40%、16%宽度
 		\hline
 		\hei{姓名} & \hei{职称} & \hei{工作单位} & \hei{备注} \\
 		\hline
@@ -24,8 +21,7 @@
 		\hline
 		【填写信息】 & 【填写信息】 & 【填写信息】 & 秘\ \ 书 \\
 		\hline
-	\end{tabular}%
-	}
+    \end{tabular}
 \end{table}
 
 
@@ -43,9 +39,6 @@
 
 
 }
-
-
-
   
 \end{defenseinfo}
 % \emptydoublepage

@@ -254,7 +254,7 @@
 % 5.2 OTF 字体配置（Adobe/Noto 字体）
 \newcommand{\installotf}{
   %%%% 英文字体
-  \setmainfont{Times New Roman}
+  \setmainfont{Times New Roman PS Std}
   \setsansfont{Arial}
   \setmonofont{Courier New}
   %%%% 中文字体
@@ -637,7 +637,7 @@
     \chapter*{作者在学期间取得的学术成果}
     \addcontentsline{toc}{chapter}{作者在学期间取得的学术成果}
     \xiaosi
-    \@afterheading}
+    \@afterheading\vspace{-0.5em}}
     {\par\vspace{2em}\par}
 
 % 公开评阅信息环境
@@ -645,7 +645,7 @@
     \chapter*{公开评阅信息}
     \addcontentsline{toc}{chapter}{公开评阅信息}
     \xiaosi
-    \@afterheading}
+    \@afterheading\vspace{-1em}}
     {\par\vspace{2em}\par}
 
 % 答辩委员会信息环境
@@ -653,7 +653,7 @@
     \chapter*{答辩委员会}
     \addcontentsline{toc}{chapter}{答辩委员会}
     \xiaosi
-    \@afterheading}
+    \@afterheading\vspace{-1em}}
     {\par\vspace{2em}\par}
 
 % 复核专家组信息环境
@@ -661,7 +661,7 @@
     \chapter*{复核专家组}
     \addcontentsline{toc}{chapter}{复核专家组}
     \xiaosi
-    \@afterheading}
+    \@afterheading\vspace{-1em}}
     {\par\vspace{2em}\par}
 % ============================================================================
 % 14. 定理与证明环境设置
