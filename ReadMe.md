@@ -25,7 +25,36 @@
 
 ## 快速开始
 
-### 1. 获取与编译
+### 1. 字体自动安装脚本（Linux）
+
+针对Ubuntu/Linux用户，提供了字体自动安装脚本(windows直接自己右键安装)：
+
+```bash
+# 先安装FreeSerif字体
+sudo apt-get install fonts-freefont-ttf
+
+# 设置脚本执行权限
+chmod +x install-fonts.sh
+
+# 用户安装（推荐）
+./install-fonts.sh
+
+# 系统安装（需要sudo权限）
+sudo ./install-fonts.sh --system
+```
+
+```
+项目目录/
+├── install-fonts.sh    # 字体安装脚本
+└── font/              # 字体目录
+    ├── fz/           # 方正字体 (.ttf/.otf)
+    ├── ttf/          # TTF 字体 (.ttf)
+    └── otf/          # OTF 字体 (.otf)
+```
+- **Linux**：`fc-list` 查看已安装字体
+- **Windows**：在"设置"→"个性化"→"字体"中查看
+- 刷新字体缓存：`fc-cache -fv`
+### 2. 获取与编译
 
 1.  **获取模板**：克隆或下载本仓库至本地
 2.  **主文件**：论文主体内容在 `mainpaper.tex` 中编辑
@@ -35,7 +64,7 @@
     - 此编译链适用于使用 `biblatex` 生成参考文献（通过 `biber` 选项启用）
     - 若使用传统 `bibtex`，编译链为 `xelatex -> bibtex -> xelatex -> xelatex`
 
-### 2. 版本控制：通过文档类选项一键生成
+### 3. 版本控制：通过文档类选项一键生成
 
 模板支持生成多种论文版本，所有版本控制完全通过 `\documentclass` 选项实现：
 
@@ -89,9 +118,7 @@
 **独创性声明**：
 模板支持将签字扫描后的 `独创性声明扫描件.pdf` 自动插入最终论文。只需将该文件放置在项目根目录即可，模板会自动处理，无需手动合并PDF。
 
-## 字体配置
-
-### 1. 字体方案选择
+**字体配置**
 
 模板提供三种预置字体方案，在文档类选项中指定：
 
@@ -107,36 +134,9 @@
 | `otf` | 跨平台 | Adobe字体或Noto CJK字体 |
 | `fz` | 已安装方正字体 | 方正系列字体 |
 
-### 2. 字体自动安装脚本（Linux用户）
 
-针对Ubuntu/Linux用户，提供了字体自动安装脚本：
 
-```bash
-# 设置脚本执行权限
-chmod +x install-fonts.sh
 
-# 用户安装（推荐）
-./install-fonts.sh
-
-# 系统安装（需要sudo权限）
-sudo ./install-fonts.sh --system
-```
-
-**准备工作**：
-```
-项目目录/
-├── install-fonts.sh    # 字体安装脚本
-└── font/              # 字体目录
-    ├── fz/           # 方正字体 (.ttf/.otf)
-    ├── ttf/          # TTF 字体 (.ttf)
-    └── otf/          # OTF 字体 (.otf)
-```
-
-### 3. 字体验证
-
-- **Linux**：`fc-list` 查看已安装字体
-- **Windows**：在"设置"→"个性化"→"字体"中查看
-- 刷新字体缓存：`fc-cache -fv`
 
 ## 系统要求与测试环境
 
