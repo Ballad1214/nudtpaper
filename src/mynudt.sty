@@ -12,8 +12,10 @@
 \RequirePackage{array} % 支持表格中的多行文本
 \RequirePackage{makecell} % 支持表格中的多行文本
 \RequirePackage[T1]{fontenc}  % 使用T1编码支持更好的字体渲染
-\RequirePackage{mathptmx}  % 将数学字体设置为Times New Roman
-\RequirePackage{amsmath}   % 提供更多的数学环境和命令
+% \RequirePackage{mathptmx}  % 将数学字体设置为Times New Roman
+% \RequirePackage{amsmath}   % 提供更多的数学环境和命令
+\RequirePackage{amsmath,amssymb,bm} % 整合了数学环境、符号和粗体
+\RequirePackage{txfonts}            % 替换掉 mathptmx，解决花体 L 过于卷曲的问题
 % \RequirePackage{algorithmicx}
 % \RequirePackage{algpseudocode} 
 
