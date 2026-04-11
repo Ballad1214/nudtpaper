@@ -225,7 +225,7 @@
 % ============================================================================
 % 4. 超链接与日期设置
 % ============================================================================
-\RequirePackage[colorlinks=false,linkcolor=black,citecolor=black,pdfborder=0 1 1]{hyperref}
+\RequirePackage[bookmarksnumbered=true,colorlinks=false,linkcolor=black,citecolor=black,pdfborder=0 1 1]{hyperref}
 \RequirePackage{datetime}
 \defaultfontfeatures{Mapping=tex-text}
 \xeCJKsetcharclass{"0}{"2E7F}{0}
