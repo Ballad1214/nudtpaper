@@ -76,6 +76,14 @@ NUDT 论文模板的主文档结构如下所示：
 \section{字体与段落格式}
 \label{sec:font_para}
 
+\subsection{关于加粗}
+由于原版加粗字体稍微偏下，例如宋{\cusong 宋}
+
+修改后可实现水平基线一致：
+
+宋\textbf{宋}粗{\cusongup 粗}。
+
+可以按需取用，感谢zzw同学的反馈。
 \subsection{中文字体}
 模板预定义了四种中文字体：
 
@@ -121,6 +129,9 @@ NUDT 论文模板的主文档结构如下所示：
   \item 使用 \verb|\noindent| 取消段落缩进
   \item 使用 \verb|\indent| 强制缩进
 \end{itemize}
+
+\subsection{自定义破折号}
+中文、英文破折号示例：中文\zhpozhe 英文co\enpozhe llm或者co-llm。
 
 \section{列表环境}
 \label{sec:lists}
@@ -430,7 +441,7 @@ print("神经网络初始化完成")
     \toprule[1.5pt]
     {\hei 命令} & {\hei 效果} \\
     \midrule[1pt]
-    \verb|\cite{key}| & 数字上标形式\cite{Black2001} \\
+    \verb|\cite{key}、\upcite{key}| & 数字上标\upcite{Black2001}形式\cite{Black2001} \\
     \verb|\parencite{key}| & 非上标形式\parencite{Black2001} \\
     \verb|\textcite{key}| & 作者-年份形式（需要设置）\textcite{Black2001} \\
 

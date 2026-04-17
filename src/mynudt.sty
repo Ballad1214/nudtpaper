@@ -14,8 +14,18 @@
 \RequirePackage[T1]{fontenc}  % 使用T1编码支持更好的字体渲染
 \RequirePackage{mathptmx}  % 将数学字体设置为Times New Roman
 \RequirePackage{amsmath}   % 提供更多的数学环境和命令
-% \RequirePackage{algorithmicx}
-% \RequirePackage{algpseudocode} 
+
+% 定义字体
+\newfontfamily{\freeseriffont}{FreeSerif}
+% 英文破折号
+\newcommand{\enpozhe}{{\freeseriffont--}}    
+% 中文破折号
+\newcommand{\zhpozhe}{%
+  \kern0.1em\relax   % 左侧微调间距
+  \rule[0.7ex]{0.6em}{0.5pt}% [垂直偏移]{长度}{粗细}
+  \kern0.1em\relax   % 右侧微调间距
+}
+
 
 % % 伪代码自动换页
 % \newenvironment{breakablealgorithm}

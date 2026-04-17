@@ -78,6 +78,7 @@
   \LoadClass[a4paper,12pt,openany]{book}
 \fi
 
+
 % 页面布局与标题样式
 \RequirePackage[includeheadfoot]{geometry}
 \RequirePackage[center,pagestyles]{titlesec}
@@ -118,13 +119,18 @@
 % 自定义波浪线符号
 \newcommand{\fttilde}{\fontspec{FreeSerif}\selectfont}
 
+\newfontfamily{\timesWinfont}{Times New Roman}
+\newcounter{numitemval}
+\newcounter{numitemslt} %selected
 % ============================================================================
 % 3. 参考文献处理配置
 % ============================================================================
 \ifisbiber
-  % 使用 biblatex + biber
-  \RequirePackage[backend=biber,style=gb7714-2015,gbalign=gb7714-2015,%
-                  gbnamefmt=lowercase,gbpub=false]{biblatex}%
+\RequirePackage[backend=biber,style=gb7714-2015,gbalign=gb7714-2015,%
+gbnamefmt=lowercase,gbpub=false,url=false,doi=false]{biblatex}%,backref=true
+\DeclareDelimFormat[bib,biblist]{titletypedelim}{\iffieldequalstr{userd}{chinese}{}{\space}}
+\renewbibmacro{addendum+pubstate}{} %去掉放在addendum中的信息
+\renewcommand{\bibfont}{\timesWinfont} %当Times New Roman PS Std缺字符时可以更换参考文献的英文字体
   
   % 参考文献条目格式设置
   \setlength{\bibitemsep}{1pt}
@@ -305,6 +311,12 @@
 % 6. 字体与排版命令定义
 % ============================================================================
 % 字体命令别名
+\renewcommand{\textbf}[1]{%
+  \raisebox{0.05em}{\bfseries #1}%
+}
+\newcommand{\cusongup}[1]{%
+  \raisebox{0.05em}{\bfseries #1}%
+}
 \newcommand{\cusong}{\bfseries}
 \newcommand{\song}{\CJKfamily{song}}     % 宋体
 \newcommand{\fs}{\CJKfamily{fs}}         % 仿宋体
@@ -483,7 +495,7 @@
 % 9. 摘要与关键词环境
 % ============================================================================
 \newcommand\cabstractname{摘\hspace{1em}要}
-\newcommand\eabstractname{ABSTRACT}
+\newcommand\eabstractname{Abstract}
 \newcommand\ckeywordsname{关键词}
 \newcommand\ckeywords[1]{{\hei\xiaosi \ckeywordsname：#1}}
 \newcommand\ekeywordsname{Key Words}
@@ -590,7 +602,7 @@
 \def\thu@tabular{\wuhao[1.25]\old@tabular}
 
 % 图表标题设置
-\DeclareCaptionLabelFormat{thu}{{\wuhao[1.25]\song#1~\rmfamily #2}}
+\DeclareCaptionLabelFormat{thu}{{\wuhao[1.25]\song#1~\timesWinfont #2}}
 \DeclareCaptionLabelSeparator{thu}{\hspace{1em}}
 \DeclareCaptionFont{thu}{\wuhao[1.25]}
 \captionsetup{labelformat=thu,labelsep=thu,font=thu}
@@ -788,7 +800,7 @@
   \vspace*{2.5cm} % 插入空白
   {\heiti\sanhao \@optionpaperclass{}学位论文}\\
     \vspace{10bp}
-    {\heiti\sanhao\ifisprof{（专业学位）}\else{（学术学位）}\fi}\\
+    {\fangsong\sanhao\ifisprof{（专业学位）}\else{（学术学位）}\fi}\\
   \vspace{12bp}
   {\cusong\erhao[1.25] \@title \par}%
   \vspace{45bp} % 从WORD中得来
