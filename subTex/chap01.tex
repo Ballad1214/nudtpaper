@@ -81,9 +81,6 @@ NUDT 论文模板的主文档结构如下所示：
 
 修改后可实现水平基线一致：
 
-宋\textbf{宋}粗{\cusongup 粗}。
-
-可以按需取用，感谢zzw同学的反馈。
 \subsection{中文字体}
 模板预定义了四种中文字体：
 
@@ -427,9 +424,9 @@ print("神经网络初始化完成")
 在模板中引用参考文献：
 
 \begin{itemize}
-  \item 单个引用：PDH稳频技术是激光频率锁定的核心方法\cite{Black2001}
-  \item 多个引用：集成光子学在通信\cite{Coldren2012}、传感\cite{Bauters2011}和量子计算\cite{Akahane2003}等领域有广泛应用
-  \item 上标引用：前人研究\cite{Agrawal2000,2012Baumgartel}表明...
+  \item 单个引用：对毕业设计管理工作的思考与研究\cite{Zhou2003}是高等教育的重要课题
+  \item 多个引用：毕业设计管理\cite{Zhou2003, Xia2004}、语言与颜色认知研究\cite{Heider1999}以及图书馆史研究\cite{Liu1979}都展示了不同领域的研究成果
+  \item 上标引用：相关研究\cite{Zhou2003, Xia2004, Heider1999}表明...
 \end{itemize}
 
 \subsection{引用样式}
@@ -441,13 +438,28 @@ print("神经网络初始化完成")
     \toprule[1.5pt]
     {\hei 命令} & {\hei 效果} \\
     \midrule[1pt]
-    \verb|\cite{key}、\upcite{key}| & 数字上标\upcite{Black2001}形式\cite{Black2001} \\
-    \verb|\parencite{key}| & 非上标形式\parencite{Black2001} \\
-    \verb|\textcite{key}| & 作者-年份形式（需要设置）\textcite{Black2001} \\
-
+    \verb|\cite{key}| & 数字上标形式\cite{Zhou2003} \\
+    \verb|\parencite{key}| & 非上标形式\parencite{Zhou2003} \\
+    \verb|\textcite{key}| & 作者-年份形式（需要设置）\textcite{Zhou2003} \\
     \bottomrule[1.5pt]
   \end{tabular}
 \end{table}
+
+\subsection{各类文献引用示例}
+本模板支持多种文献类型的引用，严格遵循GB/T 7714-2015的顺序编码制格式。下面按类型举例：
+
+\begin{itemize}
+  \item \textbf{期刊论文 (J)}：对毕业设计管理工作的思考\cite{Zhou2003}，高等学校毕业设计教学情况调研\cite{Xia2004}，以及关于语言与颜色认知的研究\cite{Heider1999}。
+  \item \textbf{专著 (M)}：图书馆史研究\cite{Liu1979} 和英国文学指南\cite{Gill1985} 是经典著作。
+  \item \textbf{报纸文章 (N)}：关于经济全球化\cite{Li1998} 和中国声音\cite{French1987} 的报道。
+  \item \textbf{论文集/会议录 (C)}：西方文论选\cite{Wu1979}、后殖民理论研究\cite{Spivak1988}以及外语教师知识成长研究\cite{Almarza1996}。
+  \item \textbf{学位论文 (D)}：微分动力系统领域的研究\cite{Zhang1983}。
+  \item \textbf{研究报告 (R)}：核反应堆安全分析报告\cite{Feng1997}。
+  \item \textbf{专利 (P)}：一种温热外敷药制备方案\cite{Jiang1989}。
+  \item \textbf{标准 (S)}：汉语拼音正词法的基本规则\cite{GB16159-1996}。
+  \item \textbf{条例 (Z)}：科学技术期刊管理办法\cite{SSTC1991}。
+  \item \textbf{电子文献 (EB/OL, DB/CD)}：关于数据库系统进展的介绍\cite{Wang1998} 及论文文摘数据库\cite{Wan1996}。
+\end{itemize}
 
 \section{本章小结}
 本章介绍了 NUDT 论文模板的基础使用方法，包括：

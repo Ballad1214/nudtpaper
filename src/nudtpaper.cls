@@ -25,7 +25,8 @@
 %% 2. 修正目录页前后空白页的页眉页脚显示问题
 %% 3. 支持直接插入独创性声明扫描件 PDF 文件，无需手动合并
 %% 4. 优化文档结构与代码注释，提高可维护性
-%% 修改日期：2026年3月11日
+%% 5. 更新到最新模板
+%% 修改日期：2026年4月18日
 %%
 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
@@ -190,7 +191,109 @@ gbnamefmt=lowercase,gbpub=false,url=false,doi=false]{biblatex}%,backref=true
     \or%
     \bibstring{\thefield{editortype}}%
     \fi\bibcloseparen}
-  
+
+\DeclareFieldFormat{month}{\mkmonthzeros{#1}}
+\DeclareBibliographyDriver{patent}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \setunit{}% 清除之前的标点
+  \setunit{\addperiod\addspace}%
+  \iffieldundef{location}
+    {\printtext{中国专利}}  % 如果location字段未定义，显示"中国专利"
+    {\iffieldequalstr{location}{中国}  % 如果location字段等于"中国"
+      {\printtext{中国专利}}  % 则显示"中国专利"
+      {\printfield{location}}  % 否则显示location字段的值
+    }%
+  \setunit{\addcolon\addspace}%
+  \printfield{number}%
+  \setunit{\addcomma\addspace}%
+  % 输出日期，将短横线替换为长划线
+  \iffieldundef{year}
+    {}
+    {\printfield{year}%
+     \iffieldundef{month}
+       {}
+       {\printtext{-}% 长划线
+        \printfield{month}%
+        \iffieldundef{day}
+          {}
+          {\printtext{-}%
+           \printfield{day}}}%
+     \setunit{\addperiod\addspace}}%
+  \usebibmacro{finentry}}
+
+
+% 重写电子文献驱动程序
+\DeclareBibliographyDriver{online}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  % 主要责任者
+  \usebibmacro{author}%
+  \setunit{\labelnamepunct}\newblock
+  % 电子文献题名
+  \usebibmacro{title}%
+  \setunit{\addspace}%
+  % 电子文献出处（如果有journaltitle或booktitle字段）
+  \iffieldundef{journaltitle}
+    {\iffieldundef{booktitle}
+      {}
+      {\setunit{\addperiod\addspace}%
+       \usebibmacro{booktitle}}}
+    {\setunit{\addperiod\addspace}%
+     \usebibmacro{journaltitle}}%
+
+  % 可获得地址或出版信息
+  \iffieldundef{url}
+    { % 无URL，显示出版信息
+      \printlist{location}%
+      \setunit{\addcolon\addspace}%
+      \printlist{publisher}%
+    }
+    { % 有URL，显示URL
+      \printfield{url}%
+    }%
+  \setunit{\addcomma\addspace}%
+  % 发表或更新日期/引用日期
+  \iffieldundef{year}
+    {}
+    {\printfield{year}%
+     \iffieldundef{month}
+       {}
+       {\printtext{-}% 长划线
+        \printfield{month}%
+        \iffieldundef{day}
+          {}
+          {\printtext{-}%
+           \printfield{day}}}%
+     \setunit{\addperiod\addspace}}%
+  \setunit{\addslash}%
+  % 引用日期
+  \iffieldundef{urlyear}
+    {}
+    {\printfield{urlyear}%
+     \iffieldundef{urlmonth}
+       {}
+       {-\mkbibmonthzeros{\thefield{urlmonth}}%
+        \iffieldundef{urlday}
+          {}
+          {-\mkdayzeros{\thefield{urlday}}}}%
+    }%
+  \usebibmacro{finentry}}
+
+% 辅助命令定义（如果尚未定义）
+\newcommand*{\mkbibmonthzeros}[1]{%
+  \ifnumless{#1}{10}
+    {0#1}
+    {#1}}
+
+\newcommand*{\mkdayzeros}[1]{%
+  \ifnumless{#1}{10}
+    {0#1}
+    {#1}}
+
   % 文章中引用格式
   \renewbibmacro*{in:}{%
     \iftoggle{bbx:gbpunctin}{\printtext{\textbf{//}\allowbreak}}%
@@ -311,12 +414,13 @@ gbnamefmt=lowercase,gbpub=false,url=false,doi=false]{biblatex}%,backref=true
 % 6. 字体与排版命令定义
 % ============================================================================
 % 字体命令别名
-\renewcommand{\textbf}[1]{%
-  \raisebox{0.05em}{\bfseries #1}%
-}
-\newcommand{\cusongup}[1]{%
-  \raisebox{0.05em}{\bfseries #1}%
-}
+% \renewcommand{\textbf}[1]{%
+%   \raise{0.05em}{\bfseries #1}%
+% }
+
+% \newcommand{\cusongup}{%
+%   \raisebox{0.05em}{\bfseries}%
+% }
 \newcommand{\cusong}{\bfseries}
 \newcommand{\song}{\CJKfamily{song}}     % 宋体
 \newcommand{\fs}{\CJKfamily{fs}}         % 仿宋体
@@ -720,8 +824,9 @@ gbnamefmt=lowercase,gbpub=false,url=false,doi=false]{biblatex}%,backref=true
 \newtoks\displaytitle                               % 用于独创性声明的题目
 \def\author#1{\def\@author{#1}}
 \def\zhdate#1{\def\@zhdate{#1}}                     % 中文日期
-\def\subject#1{\def\@subject{#1}}                   % 中文学科
-\def\researchfield#1{\def\@researchfield{#1}}       % 中文研究方向
+\def\subject#1{\def\@subject{#1}}                   % 专业
+\def\researchfield#1{\def\@researchfield{#1}}       % 学术学位研究方向/专业学位领域
+\def\researchdirection#1{\def\@researchdirection{#1}} % 专业学位研究方向
 \def\supervisor#1{\def\@supervisor{#1}}             % 导师
 \def\cosupervisor#1{\def\@cosupervisor{#1}}         % 协助指导教师
 \def\papertype#1{\def\@papertype{#1}}               % 工学/理学
@@ -776,14 +881,15 @@ gbnamefmt=lowercase,gbpub=false,url=false,doi=false]{biblatex}%,backref=true
     \multicolumn{##1}{l}{\underline{\hbox to ##2{\hfil##3\hfil}}}
     }
   \null
+  \vspace*{-1cm}
   \ifisanon%
   \author{}%
   \serialno{}%
-  \enauthor{}%
+  \enauthor{\quad{}\quad{}\quad{}\quad{}\quad{}\quad{}\quad{}}%
   \supervisor{}%
   \cosupervisor{}%
-  \ensupervisor{}%
-  \encosupervisor{}%
+  \ensupervisor{\quad{}\quad{}\quad{}\quad{}\quad{}\quad{}\quad{}}%
+  \encosupervisor{\quad{}\quad{}\quad{}\quad{}\quad{}\quad{}\quad{}}%
   \else\relax\fi%
   \pagenumbering{alph}% 不显示页码，仅用于打印
   \thispagestyle{empty}%
@@ -805,37 +911,47 @@ gbnamefmt=lowercase,gbpub=false,url=false,doi=false]{biblatex}%,backref=true
   {\cusong\erhao[1.25] \@title \par}%
   \vspace{45bp} % 从WORD中得来
   {\heiti \sihao
-    \begin{tabular}{cp{8cm}c}
-      \ifismaster
-      \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{硕\hfill{}士\hfill{}生\hfill{}姓\hfill{}名}} &
-      \else
-      \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{博\hfill{}士\hfill{}生\hfill{}姓\hfill{}名}} &
-      \fi
-        {\fs \hfil\raisebox{-3.7ex}[0pt]{\@author}\hfil{}} & \\[3.2ex]
-        \cline{2-2}
-        % \ifisprof
-        % \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{专\hfill{}业\hfill{}学\hfill{}位\hfill{}类\hfill{}别}} &
-        % \else
-        \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{学\hfill{}科\hfill{}专\hfill{}业}} &
-        % \fi
-        {\fs \hfil\raisebox{-3.7ex}[0pt]{\@subject}\hfil{}} & \\[3.2ex]
-        \cline{2-2}
-        % \ifisprof
-        % \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{专\hfill{}业\hfill{}学\hfill{}位\hfill{}领\hfill{}域}} &
-        % \else
-        \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{研\hfill{}究\hfill{}方\hfill{}向}} &
-        % \fi
-        {\fs \hfil\raisebox{-3.7ex}[0pt]{\@researchfield}\hfil{}} & \\[3.2ex]
-        \cline{2-2}
-        \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{指\hfill{}导\hfill{}教\hfill{}师}} &
-        {\fs \hfil\raisebox{-3.7ex}[0pt]{\@supervisor}\hfil{}} & \\[3.2ex]
-        \cline{2-2}
-      \ifx\@cosupervisor\@empty\else
-      \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{协\hfill{}助\hfill{}指\hfill{}导\hfill{}教\hfill{}师}} &
-          {\fs \hfil\raisebox{-3.7ex}[0pt]{\@cosupervisor}\hfil{}} & \\[3.2ex]
-          \cline{2-2}
-      \fi
-    \end{tabular}
+\begin{tabular}{cp{8cm}c}
+  \ifismaster
+  \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{硕\hfill{}士\hfill{}生\hfill{}姓\hfill{}名}} &
+  \else
+  \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{博\hfill{}士\hfill{}生\hfill{}姓\hfill{}名}} &
+  \fi
+  {\fs \hfil\raisebox{-3.7ex}[0pt]{\@author}\hfil{}} & \\[3.2ex]
+  \cline{2-2}
+  
+  \ifisprof
+  \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{专\hfill{}业\hfill{}学\hfill{}位\hfill{}类\hfill{}别}} &
+  \else
+  \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{学\hfill{}科\hfill{}专\hfill{}业}} &
+  \fi
+  {\fs \hfil\raisebox{-3.7ex}[0pt]{\@subject}\hfil{}} & \\[3.2ex]
+  \cline{2-2}
+  
+  \ifisprof
+  \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{专\hfill{}业\hfill{}学\hfill{}位\hfill{}领\hfill{}域}} &
+  \else
+  \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{研\hfill{}究\hfill{}方\hfill{}向}} &
+  \fi
+  {\fs \hfil\raisebox{-3.7ex}[0pt]{\@researchfield}\hfil{}} & \\[3.2ex]
+  \cline{2-2}
+  
+  \ifisprof
+  \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{研\hfill{}究\hfill{}方\hfill{}向}} &
+  {\fs \hfil\raisebox{-3.7ex}[0pt]{\@researchdirection}\hfil{}} & \\[3.2ex]
+  \cline{2-2}
+  \fi
+  
+  \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{指\hfill{}导\hfill{}教\hfill{}师}} &
+  {\fs \hfil\raisebox{-3.7ex}[0pt]{\@supervisor}\hfil{}} & \\[3.2ex]
+  \cline{2-2}
+  
+  % \ifx\@cosupervisor\@empty\else
+  \raisebox{-3.7ex}[0pt]{\makebox[3cm][s]{协\hfill{}助\hfill{}指\hfill{}导\hfill{}教\hfill{}师}} &
+  {\fs \hfil\raisebox{-3.7ex}[0pt]{\@cosupervisor}\hfil{}} & \\[3.2ex]
+  \cline{2-2}
+  % \fi
+\end{tabular}
   }
   \end{center}%
 
@@ -858,18 +974,17 @@ gbnamefmt=lowercase,gbpub=false,url=false,doi=false]{biblatex}%,backref=true
   \begin{tabular}{rl}
     Candidate:\ & {\textsf{\@enauthor}}\\
     \@optionas{}:\ & {\textsf{\@ensupervisor}}\\
-    \ifx\@encosupervisor\@empty\else
+    % \ifx\@encosupervisor\@empty\else
       Associate \@optionas{}:\ & {\textsf{\@encosupervisor}} \\
-    \fi
+    % \fi
   \end{tabular}}
   \vfill\vfill\vfill\vfill
   {\sanhao[1.5]
-A \ifisprof{thesis}\else{dissertation} \fi \\
+A dissertation \\
 Submitted in partial fulfillment of the requirements\\
 for the \ifisprof{professional }\else{}\fi degree of \ \ \textsf{\@optionpaperclassen{} of \@enpapertype}\\
 in\ \ \textsf{\@ensubject}\\
-\makebox[\textwidth]{\ifisanon{~}\else{National University of Defense Technology}\fi}\\
-\ifisanon{~}\else{Changsha,\ \ Hunan,\ \ P.R.China}\fi\\[5mm]
+\makebox[\textwidth]{\ifisanon{~}\else{National University of Defense Technology}\fi}\\[5mm]
 ~\@endate~
   }
   \end{center}\vfill
