@@ -243,8 +243,8 @@ gbnamefmt=lowercase,gbpub=false,url=false,doi=false]{biblatex}%,backref=true
       {\setunit{\addperiod\addspace}%
        \usebibmacro{booktitle}}}
     {\setunit{\addperiod\addspace}%
-     \usebibmacro{journaltitle}}%
-
+     \printfield{journaltitle}}%
+    \setunit{}
   % 可获得地址或出版信息
   \iffieldundef{url}
     { % 无URL，显示出版信息
